@@ -1,0 +1,91 @@
+@import "colors";
+
+$shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+
+.menu-sidebar {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 96vh;
+  width: 33vh;
+  margin-top: 2vh;
+  padding: 16px 0 16px 16px;
+  border-radius: 10px;
+  color: $colorPrimary;
+  -webkit-box-shadow: $shadow;
+  -moz-box-shadow: $shadow;
+  box-shadow: $shadow;
+
+  &.hidden {
+    width: 6vh;
+    padding-left: 0;
+  }
+}
+
+.menu-logo {
+  display: flex;
+  justify-content: end;
+  row-gap: 10px;
+  margin-top: 10px;
+  padding-right: 16px;
+  font-size: 48px;
+
+  p {
+    margin: 0;
+    padding: 4px;
+
+    &.menu-logo-fill {
+      background-color: $colorPrimary;
+      color: white;
+    }
+  }
+}
+
+.menu-items {
+  margin-top: 10px;
+  font-size: 20px;
+
+  ul {
+    list-style: none;
+
+    li {
+      display: flex;
+      align-items: center;
+      column-gap: 15px;
+      height: 48px;
+      padding-left: 10px;
+
+      &:hover {
+        background-color: $colorSecondary;
+        color: $colorSupplementary !important;
+
+        a {
+          color: $colorSupplementary !important;
+        }
+      }
+
+      a {
+        text-decoration: none;
+        color: $colorPrimary;
+      }
+
+      &.content-space-between {
+        justify-content: space-between;
+        padding-right: 23px;
+      }
+
+      &.visibility-toggler {
+        justify-content: end;
+        padding-right: 23px;
+
+        &:hover {
+          background-color: transparent;
+        }
+      }
+    }
+  }
+}
+
+.menu-icon {
+  font-size: 35px;
+}

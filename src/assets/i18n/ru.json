@@ -1,7 +1,16 @@
 {
   "menu": {
     "label": {
-      "myQuotes": "Мои цитаты"
+      "logo": "Цитат",
+      "logoFill": "ник",
+      "myQuotes": "Мои цитаты",
+      "searchQuotes": "Поиск цитат",
+      "library": "Библиотека",
+      "quotesLine": "Лента цитат",
+      "groups": "Группы",
+      "favorites": "Избранные",
+      "changeLanguage": "Сменить язык",
+      "signOut": "Выход"
     }
   }
 }
