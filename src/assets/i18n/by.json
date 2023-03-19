@@ -1,7 +1,16 @@
 {
   "menu": {
     "label": {
-      "myQuotes": "Мае цытаты"
+      "logo": "Натат",
+      "logoFill": "нік",
+      "myQuotes": "Мае цытаты",
+      "searchQuotes": "Пошук цытат",
+      "library": "Библіятэка",
+      "quotesLine": "Лента звестак",
+      "groups": "Группы",
+      "favorites": "Лепшыя",
+      "changeLanguage": "Змяніць мову",
+      "signOut": "Выйсці з рахунка"
     }
   }
 }

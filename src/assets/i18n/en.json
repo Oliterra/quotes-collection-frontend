@@ -1,7 +1,16 @@
 {
   "menu": {
     "label": {
-      "myQuotes": "My quotes"
+      "logo": "Quote",
+      "logoFill": "list",
+      "myQuotes": "My quotes",
+      "searchQuotes": "Quote search",
+      "library": "Library",
+      "quotesLine": "Quotes line",
+      "groups": "Groups",
+      "favorites": "Favorites",
+      "changeLanguage": "Change language",
+      "signOut": "Sign out"
     }
   }
 }
