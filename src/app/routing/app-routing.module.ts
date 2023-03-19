@@ -1,13 +1,30 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { RouteNavigationService } from './route-navigation.service';
-import { UserQuotesComponent } from '../component/user-quotes/user-quotes.component';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
+import {RouteNavigationService} from './route-navigation.service';
+import {QuotesListComponent} from "../component/quotes-list/quotes-list.component";
 
 const routes: Routes = [
   {
-    path: RouteNavigationService.MY_QUOTES_URL,
-    component: UserQuotesComponent
+    path: '',
+    component: QuotesListComponent,
+    data: {
+      isUserQuotes: false
+    }
   },
+  {
+    path: RouteNavigationService.MY_QUOTES_URL,
+    component: QuotesListComponent,
+    data: {
+      isUserQuotes: true
+    }
+  },
+  {
+    path: RouteNavigationService.SEARCH_QUOTES_URL,
+    component: QuotesListComponent,
+    data: {
+      isUserQuotes: false
+    }
+  }
 ];
 
 @NgModule({

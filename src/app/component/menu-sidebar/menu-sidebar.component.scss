@@ -1,20 +1,10 @@
 @import "colors";
 
-$shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
-
 .menu-sidebar {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 96vh;
   width: 33vh;
-  margin-top: 2vh;
   padding: 16px 0 16px 16px;
   border-radius: 10px;
   color: $colorPrimary;
-  -webkit-box-shadow: $shadow;
-  -moz-box-shadow: $shadow;
-  box-shadow: $shadow;
 
   &.hidden {
     width: 6vh;
@@ -23,15 +13,11 @@ $shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
 }
 
 .menu-logo {
-  display: flex;
-  justify-content: end;
-  row-gap: 10px;
   margin-top: 10px;
-  padding-right: 16px;
+  padding-left: 10px;
   font-size: 48px;
 
   p {
-    margin: 0;
     padding: 4px;
 
     &.menu-logo-fill {
@@ -57,16 +43,15 @@ $shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
 
       &:hover {
         background-color: $colorSecondary;
-        color: $colorSupplementary !important;
+        color: $colorSupplementaryBright;
 
         a {
-          color: $colorSupplementary !important;
+          color: $colorSupplementaryBright;
         }
       }
 
-      a {
-        text-decoration: none;
-        color: $colorPrimary;
+      &.activeRoure, &.activeRoure > a {
+        color: $colorSupplementaryBright !important;
       }
 
       &.content-space-between {
@@ -82,10 +67,12 @@ $shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
           background-color: transparent;
         }
       }
+
+      a {
+        text-decoration: none;
+        color: $colorPrimary;
+      }
     }
   }
 }
 
-.menu-icon {
-  font-size: 35px;
-}

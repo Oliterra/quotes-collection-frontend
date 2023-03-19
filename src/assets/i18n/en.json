@@ -12,5 +12,24 @@
       "changeLanguage": "Change language",
       "signOut": "Sign out"
     }
+  },
+  "pagination": {
+    "label": {
+      "of": "of",
+      "quotes": "quotes",
+      "total": "at total"
+    }
+  },
+  "quote": {
+    "label": {
+      "addedBy": "Added by"
+    },
+    "menu": {
+      "addToGroup": "Add to group",
+      "removeFromGroup": "Remove from group",
+      "edit": "Edit",
+      "remove": "Remove",
+      "report": "Report"
+    }
   }
 }

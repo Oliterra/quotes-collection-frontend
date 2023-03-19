@@ -1,5 +1,3 @@
-import { Location } from '@angular/common';
-import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -8,4 +6,5 @@ import { Injectable } from '@angular/core';
 export class RouteNavigationService {
 
   public static readonly MY_QUOTES_URL: string = 'my-quotes';
+  public static readonly SEARCH_QUOTES_URL: string = 'search-quotes';
 }

@@ -12,5 +12,24 @@
       "changeLanguage": "Змяніць мову",
       "signOut": "Выйсці з рахунка"
     }
+  },
+  "pagination": {
+    "label": {
+      "of": "з",
+      "quotes": "цытат",
+      "total": "усяго"
+    }
+  },
+  "quote": {
+    "label": {
+      "addedBy": "Дадаў(-ла)"
+    },
+    "menu": {
+      "addToGroup": "Дадаць у группу",
+      "removeFromGroup": "Выдаліць з группы",
+      "edit": "Рэдагаваць",
+      "remove": "Выдаліць цытату",
+      "report": "Паскардзіцца"
+    }
   }
 }
