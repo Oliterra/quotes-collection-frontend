@@ -12,5 +12,24 @@
       "changeLanguage": "Сменить язык",
       "signOut": "Выход"
     }
+  },
+  "pagination": {
+    "label": {
+      "of": "из",
+      "quotes": "цитат",
+      "total": "всего"
+    }
+  },
+  "quote": {
+    "label": {
+      "addedBy": "Добавил(-а)"
+    },
+    "menu": {
+      "addToGroup": "Добавить в группу",
+      "removeFromGroup": "Удалить из группы",
+      "edit": "Редактировать",
+      "remove": "Удалить",
+      "report": "Пожаловаться"
+    }
   }
 }

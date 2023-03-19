@@ -1,0 +1,90 @@
+@import "colors";
+
+.quotes-list-container {
+  height: 96vh;
+  margin-top: 2vh;
+}
+
+.quotes-list-wrapper {
+  margin: 2vh 15vh;
+}
+
+.quote-block {
+  margin-right: 16px;
+  margin-bottom: 6px;
+  padding-top: 10px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid $colorPrimary;
+}
+
+.book-info {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  column-gap: 10px;
+  margin-top: 20px;
+  padding: 2px 7px;
+  border-radius: 16px;
+  border: 1px solid $colorPrimary;
+  font-size: 12px;
+  color: $colorPrimary;
+
+  span {
+    font-size: 24px;
+    font-variation-settings: 'FILL' 1;
+  }
+
+  &:hover {
+    background-color: $colorSecondary;
+    color: $colorPrimaryHover;
+  }
+}
+
+.ellipse {
+  padding: 2px 6px;
+  border-radius: 16px;
+  background-color: $colorSecondary;
+  color: $colorPrimary;
+
+  &:hover {
+    background-color: $colorSecondaryHover;
+  }
+}
+
+.top-menu {
+  font-size: 18px;
+  color: $colorPrimary;
+
+  span {
+    font-variation-settings: 'GRAD' 10;
+  }
+}
+
+.btn-transparent {
+  padding: 0;
+  border: none;
+  outline: none;
+  background-color: transparent;
+}
+
+.pagination-arrow-button {
+  span {
+    display: table;
+    font-size: 30px;
+  }
+
+  &:active:not([disabled]), &:hover:not([disabled]) {
+    background-color: $colorSecondary;
+    color: $colorSupplementaryBright;
+
+    span {
+      font-variation-settings: 'GRAD' 100;
+    }
+  }
+}
+
+.highlight-icon {
+  &:hover, &.active {
+    color: $colorSupplementaryBright;
+  }
+}
