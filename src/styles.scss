@@ -16,6 +16,10 @@
   &.icon-lg {
     font-size: 2rem;
   }
+
+  &.bold {
+    font-variation-settings: 'GRAD' 10;
+  }
 }
 
 perfect-scrollbar > div {
@@ -25,6 +29,61 @@ perfect-scrollbar > div {
 
   div.ps__thumb-y {
     background-color: $colorPrimaryTransparent2 !important;
+  }
+}
+
+.modal {
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+  background-color: $colorPrimaryTransparent1;
+}
+
+.modal-width-lg {
+  width: 100vh;
+}
+
+.modal-dialog {
+  margin: auto;
+}
+
+.modal-content {
+  margin: 1rem;
+  padding: 1rem;
+  border-radius: 16px !important;
+}
+
+.modal-header {
+  font-size: 24px;
+  font-weight: 700;
+  color: $colorPrimary;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: space-between;
+
+  button {
+    width: 45%;
+    font-size: 20px;
+  }
+}
+
+label {
+  color: $colorPrimary;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+input, textarea {
+  resize: none !important;
+  box-shadow: none !important;
+  background-color: $colorSecondary !important;
+  color: $colorPrimary;
+  border: 1px solid $colorPrimary !important;
+
+  &:active, &:focus {
+    background-color: white !important;
   }
 }
 
@@ -73,4 +132,39 @@ perfect-scrollbar > div {
 
 .fs-14 {
   font-size: 14px;
+}
+
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  column-gap: 5px;
+  padding: 0;
+  border: none;
+  outline: none;
+  box-shadow: none !important;
+}
+
+.btn-transparent {
+  background-color: transparent;
+}
+
+.btn-primary {
+  background-color: $colorPrimary !important;
+  color: white !important;
+  border: 1px solid $colorPrimary !important;
+
+  &:hover:not(:disabled), &:active:not(:disabled) {
+    background-color: $colorPrimaryHover !important;
+  }
+}
+
+.btn-secondary {
+  background-color: white;
+  color: $colorPrimary !important;
+  border: 1px solid $colorPrimary;
+
+  &:hover, &:active {
+    background-color: $colorSecondary !important;
+  }
 }

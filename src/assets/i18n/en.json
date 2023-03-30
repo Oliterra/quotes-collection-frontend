@@ -1,4 +1,16 @@
 {
+  "global": {
+    "label": {
+      "add": "Add",
+      "cancel": "Cancel"
+    }
+  },
+  "page": {
+    "title": {
+      "myQuotes": "My quotes",
+      "searchQuotes": "Search"
+    }
+  },
   "menu": {
     "label": {
       "logo": "Quote",
@@ -22,7 +34,8 @@
   },
   "quote": {
     "label": {
-      "addedBy": "Added by"
+      "addedBy": "Added by",
+      "add": "Add quote"
     },
     "menu": {
       "addToGroup": "Add to group",
@@ -30,6 +43,21 @@
       "edit": "Edit",
       "remove": "Remove",
       "report": "Report"
+    }
+  },
+  "dialog": {
+    "addQuote": {
+      "title": "Add quote",
+      "label": {
+        "sourceBook": "What book is the quote from?",
+        "addBook": "Add book",
+        "text": "Quote text",
+        "accessLevel": "Access level",
+        "privateQuote": "Only I can watch",
+        "publicQuote": "Let everyone see",
+        "addToGroup": "Add to group",
+        "addTags": "Add tags"
+      }
     }
   }
 }

@@ -12,6 +12,7 @@ export class QuoteService {
   private readonly QUOTE_URL: string = 'quotes';
   private readonly COUNT_URL: string = 'count';
   private readonly PAGE_URL: string = 'page';
+  private readonly CREATE_URL: string = 'create';
 
   constructor(private http: HttpClient) {
   }
@@ -50,5 +51,9 @@ export class QuoteService {
       params: httpParams
     };
     return this.http.get<QuoteMainInfoVO[]>(`${AppConstants.API_URL}/${this.QUOTE_URL}/${this.PAGE_URL}/${userId}`, requestOptions);
+  }
+
+  public createQuote(quoteMainInfo: QuoteMainInfoVO): Observable<void> {
+    return this.http.post<void>(`${AppConstants.API_URL}/${this.QUOTE_URL}/${this.CREATE_URL}`, quoteMainInfo);
   }
 }

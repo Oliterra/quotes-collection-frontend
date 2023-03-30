@@ -30,6 +30,10 @@ export class MenuSidebarComponent {
     this.isHidden = true;
   }
 
+  public isHomeRoute(): boolean {
+    return this.activatedRoute.snapshot.routeConfig.path === '';
+  }
+
   public isActiveRoute(url: string): boolean {
     return this.activatedRoute.snapshot.routeConfig.path === url;
   }

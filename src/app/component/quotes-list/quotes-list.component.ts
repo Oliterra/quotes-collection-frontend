@@ -1,11 +1,12 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {QuoteMainInfoVO} from "../../model/vo/project.vo";
+import {GroupVO, QuoteMainInfoVO} from "../../model/vo/project.vo";
 import {QuoteService} from "../../service/quote.service";
 import {forkJoin, Observable, tap} from "rxjs";
 import {Dictionary} from 'typescript-collections';
 import {TranslateService} from "@ngx-translate/core";
 import {UserService} from "../../service/user.service";
 import {ActivatedRoute} from "@angular/router";
+import {WindowService} from "../../service/window.service";
 
 export interface QuoteInfo {
   quote: QuoteMainInfoVO,
@@ -37,27 +38,42 @@ export class QuotesListComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private translateService: TranslateService,
               private quoteService: QuoteService,
-              private userLoginService: UserService) {
+              private userLoginService: UserService,
+              private windowService: WindowService) {
     this.cashedQuotesPages = new Dictionary<number, QuoteInfo[]>();
   }
 
   public ngOnInit(): void {
     this.isUserQuotes = this.route.snapshot.data['isUserQuotes'];
-    this.isLoading = true;
+    this.loadQuotesInitially();
+  }
+
+  private loadQuotesInitially(): void {
     forkJoin([
       this.isUserQuotes ? this.quoteService.getUserQuotesCount(this.userLoginService.currentUserId) : this.quoteService.getAllQuotesCount(),
       this.isUserQuotes ? this.quoteService.getUserQuotesMainInfoPage(this.userLoginService.currentUserId, this.INITIAL_PAGE_NUMBER, this.QUOTES_PER_PAGE_COUNT)
         : this.quoteService.getAllQuotesMainInfoPage(this.INITIAL_PAGE_NUMBER, this.QUOTES_PER_PAGE_COUNT)
     ]).pipe(tap(() => this.isLoading = false))
-      .subscribe(([quotesCount, quotesMainInfo]) => {
+      .subscribe(([quotesCount, quotesMainInfos]) => {
         this.quotesCount = quotesCount;
         this.lastPageCount = Math.trunc(quotesCount / this.QUOTES_PER_PAGE_COUNT);
-        this.pageQuotes = this.getQuotesInfo(quotesMainInfo);
+        this.pageQuotes = this.getQuotesInfo(quotesMainInfos);
       });
   }
 
   public get isCurrentUserGuest(): boolean {
     return !this.userLoginService.isUserLoggedIn;
+  }
+
+  public addQuote(): void {
+    this.windowService.openAddQuoteDialog().subscribe(() => {
+      this.cashedQuotesPages.clear();
+      this.loadQuotesInitially();
+    });
+  }
+
+  public getGroupNames(quoteMainInfo: QuoteMainInfoVO): string[] {
+    return quoteMainInfo.groups.map((group: GroupVO) => group.name);
   }
 
   public toggleQuoteDropdownOpen(quoteInfo: QuoteInfo): void {
@@ -101,11 +117,12 @@ export class QuotesListComponent implements OnInit {
     const quoteMainInfo: Observable<QuoteMainInfoVO[]> = this.isUserQuotes
       ? this.quoteService.getUserQuotesMainInfoPage(this.userLoginService.currentUserId, this.INITIAL_PAGE_NUMBER, this.QUOTES_PER_PAGE_COUNT)
       : this.quoteService.getAllQuotesMainInfoPage(pageNumber, this.QUOTES_PER_PAGE_COUNT);
-    quoteMainInfo.pipe(tap(() => this.isLoading = false)).subscribe((quotesMainInfo: QuoteMainInfoVO[]) => {
-      const quotesInfo: QuoteInfo[] = this.getQuotesInfo(quotesMainInfo);
-      this.pageQuotes = quotesInfo;
-      this.cashedQuotesPages.setValue(pageNumber, quotesInfo);
-    });
+    quoteMainInfo.pipe(tap(() => this.isLoading = false))
+      .subscribe((quotesMainInfos: QuoteMainInfoVO[]) => {
+        const quotesInfo: QuoteInfo[] = this.getQuotesInfo(quotesMainInfos);
+        this.pageQuotes = quotesInfo;
+        this.cashedQuotesPages.setValue(pageNumber, quotesInfo);
+      });
   }
 
   private getQuotesInfo(quotes: QuoteMainInfoVO[]): QuoteInfo[] {
