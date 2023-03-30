@@ -12,7 +12,7 @@
           <span class="material-symbols-outlined icon-lg filled">demography</span>
           <a>{{'menu.label.myQuotes' | translate }}</a>
         </li>
-        <li [class.activeRoure]="isActiveRoute(searchQuotesUrl)"
+        <li [class.activeRoure]="isHomeRoute() || isActiveRoute(searchQuotesUrl)"
             (click)="goToSearchQuotes()">
           <span class="material-symbols-outlined icon-lg filled">manage_search</span>
           <a>{{'menu.label.searchQuotes' | translate }}</a>

@@ -14,6 +14,9 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {QuotesListComponent} from "./component/quotes-list/quotes-list.component";
 import {ngxLoadingAnimationTypes, NgxLoadingModule} from "ngx-loading";
 import {PERFECT_SCROLLBAR_CONFIG, PerfectScrollbarConfigInterface, PerfectScrollbarModule} from "ngx-perfect-scrollbar";
+import {AddQuoteComponent} from './component/dialog/add-quote/add-quote.component';
+import {BsModalService} from "ngx-bootstrap/modal";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
@@ -24,6 +27,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     AppComponent,
     MenuSidebarComponent,
     QuotesListComponent,
+    AddQuoteComponent,
   ],
   imports: [
     BrowserModule,
@@ -42,7 +46,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
       useDefaultLang: false,
     }),
     BrowserAnimationsModule,
-    BsDropdownModule,
+    BsDropdownModule.forRoot(),
     PopoverModule,
     NgxLoadingModule.forRoot({
       animationType: ngxLoadingAnimationTypes.rotatingPlane,
@@ -50,12 +54,15 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
       primaryColour: "#ffffff"
     }),
     PerfectScrollbarModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     {
       provide: PERFECT_SCROLLBAR_CONFIG,
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
     },
+    BsModalService,
   ],
   bootstrap: [AppComponent]
 })

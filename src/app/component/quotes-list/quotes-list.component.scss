@@ -1,5 +1,17 @@
 @import "colors";
 
+.page-title {
+  color: $colorPrimary;
+  font-weight: 700;
+}
+
+.add-button {
+  margin-right: 2vh;
+  padding: 5px 40px;
+  font-size: 20px;
+  font-weight: 500;
+}
+
 .quotes-list-container {
   height: 96vh;
   margin-top: 2vh;
@@ -51,22 +63,6 @@
   }
 }
 
-.top-menu {
-  font-size: 18px;
-  color: $colorPrimary;
-
-  span {
-    font-variation-settings: 'GRAD' 10;
-  }
-}
-
-.btn-transparent {
-  padding: 0;
-  border: none;
-  outline: none;
-  background-color: transparent;
-}
-
 .pagination-arrow-button {
   span {
     display: table;
@@ -84,7 +80,9 @@
 }
 
 .highlight-icon {
+  color: $colorPrimary !important;
+
   &:hover, &.active {
-    color: $colorSupplementaryBright;
+    color: $colorSupplementaryBright !important;
   }
 }

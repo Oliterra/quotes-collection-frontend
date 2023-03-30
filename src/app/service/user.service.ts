@@ -6,7 +6,7 @@ import {Injectable} from '@angular/core';
 export class UserService {
 
   public get currentUserId(): number {
-    return 3;
+    return 1;
   }
 
   public get isUserLoggedIn(): boolean {
