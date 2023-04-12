@@ -1,0 +1,98 @@
+@import "colors";
+
+:host {
+  .modal-body-inner {
+    height: 75vh;
+  }
+}
+
+.filtered-books-container {
+  width: 98%;
+}
+
+.filtered-books {
+  background-color: $colorSecondary;
+
+  li {
+    display: flex;
+    align-items: center;
+    padding: 1px 7px;
+    color: $colorPrimary;
+
+    &:hover {
+      background-color: $colorSupplementaryPastel;
+    }
+  }
+}
+
+.add-book {
+  background-color: $colorSecondaryHover;
+  color: $colorPrimaryHover !important;
+}
+
+.btn-toggle {
+  width: 50%;
+  padding: 8px 32px;
+}
+
+.btn-private {
+  border-radius: 5px 0 0 5px;
+}
+
+.btn-public {
+  border-radius: 0 5px 5px 0;
+}
+
+.btn-group, .btn-tag {
+  background-color: $colorSecondary;
+  color: $colorPrimary;
+
+  &:hover:not(.selected) {
+    background-color: $colorSecondaryHover;
+  }
+
+  &:hover.selected {
+    background-color: $colorSupplementaryPastelHover;
+  }
+
+  &.active, &.selected {
+    background-color: $colorSupplementaryPastel;
+    color: white;
+  }
+}
+
+.btn-group {
+  justify-content: start;
+  width: 100%;
+  padding: 4px 32px;
+  border: 1px solid $colorPrimary;
+}
+
+.btn-add-tag {
+  background-color: $colorSecondary;
+  color: $colorPrimary;
+  border: 1px solid $colorPrimary;
+  padding: 0 10px;
+  border-radius: 0 5px 5px 0;
+  border-left: none !important;
+
+  &:hover:not(.disabled) {
+    background-color: $colorSecondaryHover;
+  }
+
+  &.disabled {
+    opacity: 100%;
+    color: lightgray;
+  }
+}
+
+.btn-tag {
+  display: inline-block;
+  padding: 2px;
+  border-radius: 10px;
+}
+
+.tag-input {
+  border-radius: 5px 0 0 5px;
+  border-right: none !important;
+}

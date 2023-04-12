@@ -1,7 +1,76 @@
 {
+  "global": {
+    "label": {
+      "add": "Добавить",
+      "cancel": "Отмена"
+    }
+  },
+  "page": {
+    "title": {
+      "myQuotes": "Мои цитаты",
+      "searchQuotes": "Поиск"
+    }
+  },
   "menu": {
     "label": {
-      "myQuotes": "Мои цитаты"
+      "logo": "Цитат",
+      "logoFill": "ник",
+      "myQuotes": "Мои цитаты",
+      "searchQuotes": "Поиск цитат",
+      "library": "Библиотека",
+      "quotesLine": "Лента цитат",
+      "groups": "Группы",
+      "favorites": "Избранные",
+      "changeLanguage": "Сменить язык",
+      "signOut": "Выход"
+    }
+  },
+  "pagination": {
+    "label": {
+      "of": "из",
+      "quotes": "цитат",
+      "total": "всего"
+    }
+  },
+  "quote": {
+    "label": {
+      "addedBy": "Добавил(-а)",
+      "add": "Добавить цитату"
+    },
+    "menu": {
+      "addToGroup": "Добавить в группу",
+      "removeFromGroup": "Удалить из группы",
+      "edit": "Редактировать",
+      "remove": "Удалить",
+      "report": "Пожаловаться"
+    },
+    "hint": {
+      "noQuotes": "У нас нет ничего по этому запросу",
+      "addQuotes": "Пожалуйста, помогите наполнить наше приложение интересными цитатами"
+    },
+    "search": {
+      "label": {
+        "author": "Автор",
+        "book": "Книга",
+        "category": "Категория",
+        "text": "Текст",
+        "tags": "Тэги"
+      }
+    }
+  },
+  "dialog": {
+    "addQuote": {
+      "title": "Добавить цитату",
+      "label": {
+        "sourceBook": "Из какой книги цитата?",
+        "addBook": "Добавить книгу",
+        "text": "Текст цитаты",
+        "accessLevel": "Уровень доступа",
+        "privateQuote": "Могу видеть только я",
+        "publicQuote": "Могут видеть все",
+        "addToGroup": "Добавить в группу",
+        "addTags": "Добавьте теги"
+      }
     }
   }
 }

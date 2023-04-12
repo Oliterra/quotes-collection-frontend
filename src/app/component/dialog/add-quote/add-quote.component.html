@@ -1,0 +1,103 @@
+<div class="modal-header">
+  {{ 'dialog.addQuote.title' | translate }}
+</div>
+<div class="modal-body">
+  <div class="modal-body-inner d-flex">
+    <perfect-scrollbar>
+      <div class="scrollable-container-vertical">
+        <!--book-->
+        <label>{{ 'dialog.addQuote.label.sourceBook' | translate }}</label>
+        <input class="form-control"
+               [formControl]="bookFormControl"
+               (input)="onBookInputChange($event)">
+        <!--TODO: use names-dropdown instead-->
+        <div *ngIf="isBookDropdownOpen" class="filtered-books-container d-flex"
+             [style.height]="getBooksHintHeight(false)">
+          <perfect-scrollbar>
+            <div class="scrollable-container-vertical">
+              <ul class="filtered-books p-0">
+                <li class="add-book p-0" [style.height]="getBooksHintHeight(true)">
+                  <span class="material-symbols-outlined mr-1">add_circle</span>
+                  {{'dialog.addQuote.label.addBook' | translate}}
+                </li>
+                <li *ngFor="let book of filteredBooks" [style.height]="getBooksHintHeight(true)"
+                    (click)="selectBook(book)">
+                  {{book.name + ' - ' + book.author.name}}
+                </li>
+              </ul>
+            </div>
+          </perfect-scrollbar>
+        </div>
+
+        <!--text-->
+        <label class="mt-3">{{ 'dialog.addQuote.label.text' | translate }}</label>
+        <textarea #quoteTextarea class="form-control" rows="7" autosize
+                  [formControl]="textFormControl"></textarea>
+
+        <!--access level-->
+        <label class="mt-3">{{ 'dialog.addQuote.label.accessLevel' | translate }}</label>
+        <div class="d-flex">
+          <button class="btn btn-toggle btn-private"
+                  [class.btn-secondary]="isPublic"
+                  [class.btn-primary]="!isPublic"
+                  (click)="toggleVisibility(false)">
+            {{'dialog.addQuote.label.privateQuote' | translate}}
+            <span class="material-symbols-outlined">visibility_off</span>
+          </button>
+          <button class="btn btn-toggle btn-public"
+                  [class.btn-secondary]="!isPublic"
+                  [class.btn-primary]="isPublic"
+                  (click)="toggleVisibility(true)">
+            {{'dialog.addQuote.label.publicQuote' | translate}}
+            <span class="material-symbols-outlined">visibility</span>
+          </button>
+        </div>
+
+        <!--groups-->
+        <label class="mt-3">{{ 'dialog.addQuote.label.addToGroup' | translate }}</label>
+        <button *ngFor="let groupInfo of groups" class="btn btn-group mb-1"
+                [class.selected]="groupInfo.isSelected"
+                (click)="toggleGroupSelection(groupInfo)">
+          {{groupInfo.group.name}}
+        </button>
+
+        <!--tags-->
+        <label class="mt-2">{{ 'dialog.addQuote.label.addTags' | translate }}</label>
+        <div class="d-flex justify-content-between">
+          <input class="form-control tag-input"
+                 [formControl]="tagFormControl"
+                 (input)="onTagsInputChange($event)"
+                 (keydown.enter)="addTag()">
+          <button class="btn btn-add-tag"
+                  [class.disabled]="!tagFormControl.value?.length || isTagExist(tagFormControl.value)"
+                  (click)="addTag()">
+            <span class="material-symbols-outlined">add_circle</span>
+          </button>
+        </div>
+        <div class="h-100 mt-1">
+          <ul class="p-0">
+            <button *ngFor="let tag of filteredTags" class="btn btn-tag"
+                    [class.selected]="tag.isSelected"
+                    (click)="toggleTagSelection(tag)">
+              {{tag.tag.name}}
+            </button>
+          </ul>
+        </div>
+      </div>
+    </perfect-scrollbar>
+  </div>
+</div>
+<div class="modal-footer">
+  <button class="btn btn-secondary"
+          (click)="close()">
+    {{'global.label.cancel' | translate}}
+  </button>
+  <button class="btn btn-primary"
+          [disabled]="!canBeAdded()"
+          (click)="add()">
+    {{'global.label.add' | translate}}
+  </button>
+</div>
+
+<ngx-loading [show]="isLoading"></ngx-loading>
+

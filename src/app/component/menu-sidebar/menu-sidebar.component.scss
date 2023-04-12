@@ -1,0 +1,78 @@
+@import "colors";
+
+.menu-sidebar {
+  width: 33vh;
+  padding: 16px 0 16px 16px;
+  border-radius: 10px;
+  color: $colorPrimary;
+
+  &.hidden {
+    width: 6vh;
+    padding-left: 0;
+  }
+}
+
+.menu-logo {
+  margin-top: 10px;
+  padding-left: 10px;
+  font-size: 48px;
+
+  p {
+    padding: 4px;
+
+    &.menu-logo-fill {
+      background-color: $colorPrimary;
+      color: white;
+    }
+  }
+}
+
+.menu-items {
+  margin-top: 10px;
+  font-size: 20px;
+
+  ul {
+    list-style: none;
+
+    li {
+      display: flex;
+      align-items: center;
+      column-gap: 15px;
+      height: 48px;
+      padding-left: 10px;
+
+      &:hover {
+        background-color: $colorSecondary;
+        color: $colorSupplementaryBright;
+
+        a {
+          color: $colorSupplementaryBright;
+        }
+      }
+
+      &.activeRoure, &.activeRoure > a {
+        color: $colorSupplementaryBright !important;
+      }
+
+      &.content-space-between {
+        justify-content: space-between;
+        padding-right: 23px;
+      }
+
+      &.visibility-toggler {
+        justify-content: end;
+        padding-right: 23px;
+
+        &:hover {
+          background-color: transparent;
+        }
+      }
+
+      a {
+        text-decoration: none;
+        color: $colorPrimary;
+      }
+    }
+  }
+}
+

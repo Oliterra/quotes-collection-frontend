@@ -1,0 +1,14 @@
+@import "colors";
+
+.search {
+  display: flex;
+  justify-content: space-between;
+  margin: 2vh 2vh 2vh 0;
+  padding: 20px;
+  border-radius: 16px;
+  border: 1px solid $colorPrimary;
+}
+
+.scrollable-container {
+  height: 100% !important;
+}

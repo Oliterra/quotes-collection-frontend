@@ -1,7 +1,76 @@
 {
+  "global": {
+    "label": {
+      "add": "Дадаць",
+      "cancel": "Скасаваць"
+    }
+  },
+  "page": {
+    "title": {
+      "myQuotes": "Мае нататкі",
+      "searchQuotes": "Пошук"
+    }
+  },
   "menu": {
     "label": {
-      "myQuotes": "Мае цытаты"
+      "logo": "Натат",
+      "logoFill": "нік",
+      "myQuotes": "Мае цытаты",
+      "searchQuotes": "Пошук цытат",
+      "library": "Библіятэка",
+      "quotesLine": "Лента звестак",
+      "groups": "Группы",
+      "favorites": "Лепшыя",
+      "changeLanguage": "Змяніць мову",
+      "signOut": "Выйсці з рахунка"
+    }
+  },
+  "pagination": {
+    "label": {
+      "of": "з",
+      "quotes": "цытат",
+      "total": "усяго"
+    }
+  },
+  "quote": {
+    "label": {
+      "addedBy": "Дадаў(-ла)",
+      "add": "Дадаць цытату"
+    },
+    "menu": {
+      "addToGroup": "Дадаць у группу",
+      "removeFromGroup": "Выдаліць з группы",
+      "edit": "Рэдагаваць",
+      "remove": "Выдаліць цытату",
+      "report": "Паскардзіцца"
+    },
+    "hint": {
+      "noQuotes": "У нас няма нічога для гэтай просьбы",
+      "addQuotes": "Калі ласка, паспрыяйце напаўненню нашага прыкладання цікавымі цытатамі"
+    },
+    "search": {
+      "label": {
+        "author": "Аўтар",
+        "book": "Кніга",
+        "category": "Катэгорыя",
+        "text": "Словы цытаты",
+        "tags": "Тэгі"
+      }
+    }
+  },
+  "dialog": {
+    "addQuote": {
+      "title": "Дадаць цытату",
+      "label": {
+        "sourceBook": "З якой кнігі цытата?",
+        "addBook": "Дадаць кнігу",
+        "text": "Тэкст цытаты",
+        "accessLevel": "Узровень доступа",
+        "privateQuote": "Магу глядзець толькі я",
+        "publicQuote": "Няхай усе бачаць",
+        "addToGroup": "Дадаць у группу",
+        "addTags": "Дадайце тэгі"
+      }
     }
   }
 }

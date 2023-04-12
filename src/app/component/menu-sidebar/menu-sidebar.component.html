@@ -1,0 +1,68 @@
+<div class="d-flex flex-column justify-content-between h-100 menu-sidebar shadow"
+     [class.hidden]="isHidden">
+  <div *ngIf="!isHidden">
+    <div class="d-flex justify-content-center row-gap-10 menu-logo">
+      <p class="m-0">{{'menu.label.logo' | translate }}</p>
+      <p class="menu-logo-fill m-0">{{'menu.label.logoFill' | translate }}</p>
+    </div>
+    <nav class="menu-items">
+      <ul>
+        <li [class.activeRoure]="isHomeRoute() || isActiveRoute(myQuotesUrl)"
+            (click)="goToMyQuotes()">
+          <span class="material-symbols-outlined icon-lg filled">demography</span>
+          <a>{{'menu.label.myQuotes' | translate }}</a>
+        </li>
+        <li [class.activeRoure]="isActiveRoute(searchQuotesUrl)"
+            (click)="goToSearchQuotes()">
+          <span class="material-symbols-outlined icon-lg filled">manage_search</span>
+          <a>{{'menu.label.searchQuotes' | translate }}</a>
+        </li>
+        <li>
+          <span class="material-symbols-outlined icon-lg filled">library_books</span>
+          <a>{{'menu.label.library' | translate }}</a>
+        </li>
+        <li>
+          <span class="material-symbols-outlined icon-lg">screencast</span>
+          <a>{{'menu.label.quotesLine' | translate }}</a>
+        </li>
+        <li>
+          <span class="material-symbols-outlined icon-lg filled">bookmarks</span>
+          <a>{{'menu.label.favorites' | translate }}</a>
+        </li>
+        <li class="content-space-between">
+          <a>{{'menu.label.groups' | translate }}</a>
+          <span class="material-symbols-outlined icon-lg">add</span>
+        </li>
+      </ul>
+    </nav>
+  </div>
+  <router-outlet></router-outlet>
+  <div class="menu-items">
+    <ul>
+      <li *ngIf="!isHidden">
+        <div class="d-flex" dropdown dropdownToggle
+             [dropup]="true">
+          <span class="material-symbols-outlined icon-lg">translate</span>
+          <a class="d-flex align-items-center pl-3">{{'menu.label.changeLanguage' | translate}}</a>
+          <ul *dropdownMenu class="dropdown-menu">
+            <li *ngFor="let locale of locales"
+                (click)="setLocale(locale)">
+              {{locale}}
+            </li>
+          </ul>
+        </div>
+      </li>
+      <li *ngIf="!isHidden">
+        <span class="material-symbols-outlined icon-lg">logout</span>
+        <a>{{'menu.label.signOut' | translate }}</a>
+      </li>
+      <li class="visibility-toggler">
+        <span class="material-symbols-outlined icon-lg"
+              (click)="isHidden ? show() : hide()">
+          {{isHidden ? 'arrow_forward_ios' : 'arrow_back_ios'}}
+        </span>
+      </li>
+    </ul>
+  </div>
+</div>
+
