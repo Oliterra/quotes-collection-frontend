@@ -7,12 +7,12 @@
     </div>
     <nav class="menu-items">
       <ul>
-        <li [class.activeRoure]="isActiveRoute(myQuotesUrl)"
+        <li [class.activeRoure]="isHomeRoute() || isActiveRoute(myQuotesUrl)"
             (click)="goToMyQuotes()">
           <span class="material-symbols-outlined icon-lg filled">demography</span>
           <a>{{'menu.label.myQuotes' | translate }}</a>
         </li>
-        <li [class.activeRoure]="isHomeRoute() || isActiveRoute(searchQuotesUrl)"
+        <li [class.activeRoure]="isActiveRoute(searchQuotesUrl)"
             (click)="goToSearchQuotes()">
           <span class="material-symbols-outlined icon-lg filled">manage_search</span>
           <a>{{'menu.label.searchQuotes' | translate }}</a>

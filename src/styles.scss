@@ -82,9 +82,13 @@ input, textarea {
   color: $colorPrimary;
   border: 1px solid $colorPrimary !important;
 
-  &:active, &:focus {
+  &:active:not([readonly]), &:focus:not([readonly]) {
     background-color: white !important;
   }
+}
+
+input[readonly], textarea[readonly] {
+  opacity: 50% !important;
 }
 
 .shadow {
@@ -134,6 +138,14 @@ input, textarea {
   font-size: 14px;
 }
 
+.fs-16 {
+  font-size: 16px;
+}
+
+.fs-18 {
+  font-size: 18px;
+}
+
 .btn {
   display: flex;
   align-items: center;
@@ -160,11 +172,15 @@ input, textarea {
 }
 
 .btn-secondary {
-  background-color: white;
+  background-color: white !important;
   color: $colorPrimary !important;
-  border: 1px solid $colorPrimary;
+  border: 1px solid $colorPrimary !important;
 
-  &:hover, &:active {
+  &:hover:not(:disabled), &:active:not(:disabled) {
     background-color: $colorSecondary !important;
   }
+}
+
+.primary {
+  color: $colorPrimary !important;
 }

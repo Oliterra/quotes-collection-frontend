@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {BsModalService} from "ngx-bootstrap/modal";
 import {AddQuoteComponent} from "../component/dialog/add-quote/add-quote.component";
-import {Observable, Subject} from "rxjs";
+import {Subject} from "rxjs";
 
 @Injectable({
   providedIn: 'root'

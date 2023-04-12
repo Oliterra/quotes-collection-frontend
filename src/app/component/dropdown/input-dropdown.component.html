@@ -1,0 +1,42 @@
+<div class="d-flex justify-content-between">
+  <div class="d-flex flex-column p-0"
+       [class]="showSelectedItemsSeparately ? 'col-4' : 'col-12'">
+    <input *ngIf="!isMultiselect" class="form-control"
+           [readonly]="isReadonly"
+           [formControl]="formControl"
+           (input)="onInput()"
+           (click)="openFilteredItemsDropdown()">
+    <input *ngIf="isMultiselect && showSelectedItemsSeparately" class="form-control"
+           [readonly]="isReadonly"
+           [formControl]="formControl"
+           (click)="openFilteredItemsDropdown()">
+    <textarea *ngIf="isMultiselect && !showSelectedItemsSeparately" class="form-control" rows="1" autosize
+              [readonly]="isReadonly"
+              [formControl]="formControl"
+              (click)="openFilteredItemsDropdown()"></textarea>
+    <div *ngIf="isOpen && this.items?.length" class="item-dropdown"
+         [style.height]="getDropdownHeight()"
+         (mouseleave)="closeFilteredItemsDropdown()">
+      <perfect-scrollbar>
+        <div class="scrollable-container-vertical">
+          <ul class="item-list p-0">
+            <li *ngFor="let itemInfo of filteredItemInfos" class="item"
+                [class.selected]="itemInfo.isSelected"
+                (click)="onClick(itemInfo)">
+              {{getItemName(itemInfo)}}
+            </li>
+          </ul>
+        </div>
+      </perfect-scrollbar>
+    </div>
+  </div>
+  <div *ngIf="showSelectedItemsSeparately" class="col-8">
+    <button *ngFor="let itemInfo of selectedItemsToShowSeparately" class="btn btn-transparent separated-item-btn fs-14">
+      {{getItemName(itemInfo)}}
+      <span class="material-symbols-outlined remove-separated-item fs-18"
+            (click)="onMultiselectItemUnselection(itemInfo)">
+        cancel
+      </span>
+    </button>
+  </div>
+</div>
