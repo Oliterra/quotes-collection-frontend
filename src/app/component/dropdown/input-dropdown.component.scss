@@ -1,0 +1,44 @@
+@import "colors";
+
+:host {
+  input[readonly], textarea[readonly] {
+    opacity: 100% !important;
+  }
+}
+
+.item-dropdown {
+  background-color: $colorSecondary;
+  color: $colorPrimary;
+  font-size: 15px;
+}
+
+.item-list {
+  list-style: none;
+}
+
+.item {
+  padding: 3px;
+
+  &:hover:not([selected]), &.selected {
+    background-color: $colorSupplementaryPastel;
+  }
+
+  &:hover.selected {
+    background-color: $colorSupplementaryPastelHover !important;
+  }
+}
+
+.separated-item-btn {
+  display: inline-flex;
+  padding: 2px 6px;
+  background-color: $colorSecondary;
+  color: $colorPrimary;
+  border-radius: 16px;
+}
+
+.remove-separated-item {
+
+  &:hover {
+    color: $colorSupplementaryBright;
+  }
+}

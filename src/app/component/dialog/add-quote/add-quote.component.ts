@@ -29,8 +29,6 @@ export class AddQuoteComponent implements OnInit {
   public readonly LI_HEIGHT: number = 25;
   public readonly HASH_SYMBOL: string = '#';
 
-  @ViewChild('quoteTextarea') quoteTextarea: ElementRef;
-
   @Input()
   public closeEmitter: Subject<void>;
 
@@ -92,14 +90,6 @@ export class AddQuoteComponent implements OnInit {
     }
   }
 
-  public getBookInfo(book: BookVO): string {
-    if (book) {
-      return `${book.name} - ${book.author.name} ${book.author.surname}`;
-    } else {
-      return '';
-    }
-  }
-
   public getBooksHintHeight(isSingleElement: boolean): string {
     if (isSingleElement || !this.filteredBooks.length) {
       return this.LI_HEIGHT + 'px';
@@ -116,13 +106,6 @@ export class AddQuoteComponent implements OnInit {
     this.selectedBook = book;
     this.bookFormControl.setValue(this.selectedBook.name);
     this.isBookDropdownOpen = false;
-  }
-
-  public onQuoteTextareaInput(): void {
-    const nativeElement = this.quoteTextarea.nativeElement as HTMLTextAreaElement;
-    nativeElement.style.overflow = 'hidden';
-    nativeElement.style.height = 'auto';
-    nativeElement.style.height = `${nativeElement.scrollHeight}px`;
   }
 
   public toggleVisibility(isPublic: boolean): void {
@@ -173,7 +156,7 @@ export class AddQuoteComponent implements OnInit {
   public add(): void {
     const quote: QuoteMainInfoVO = new QuoteMainInfoVO();
     quote.userId = this.userService.currentUserId;
-    quote.bookId = this.selectedBook.id;
+    quote.book = this.selectedBook;
     quote.text = String(this.textFormControl.value).trim();
     quote.isPublic = this.isPublic;
     quote.groups = this.groups.filter((groupInfo: GroupInfo) => groupInfo.isSelected).map((groupInfo: GroupInfo) => groupInfo.group);

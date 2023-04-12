@@ -11,12 +11,15 @@ import {MissingTranslationService} from './service/missing-translation.service';
 import {PopoverModule} from 'ngx-bootstrap/popover';
 import {BsDropdownModule} from 'ngx-bootstrap/dropdown';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {QuotesListComponent} from "./component/quotes-list/quotes-list.component";
+import {QuoteListComponent} from "./component/quote-list/quote-list.component";
 import {ngxLoadingAnimationTypes, NgxLoadingModule} from "ngx-loading";
 import {PERFECT_SCROLLBAR_CONFIG, PerfectScrollbarConfigInterface, PerfectScrollbarModule} from "ngx-perfect-scrollbar";
 import {AddQuoteComponent} from './component/dialog/add-quote/add-quote.component';
 import {BsModalService} from "ngx-bootstrap/modal";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {QuoteSearchComponent} from './component/quote-search/quote-search.component';
+import {InputDropdownComponent} from './component/dropdown/input-dropdown.component';
+import {AutosizeModule} from "ngx-autosize";
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
@@ -26,8 +29,10 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   declarations: [
     AppComponent,
     MenuSidebarComponent,
-    QuotesListComponent,
+    QuoteListComponent,
     AddQuoteComponent,
+    QuoteSearchComponent,
+    InputDropdownComponent,
   ],
   imports: [
     BrowserModule,
@@ -55,7 +60,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     }),
     PerfectScrollbarModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AutosizeModule
   ],
   providers: [
     {

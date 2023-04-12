@@ -43,6 +43,19 @@
       "edit": "Edit",
       "remove": "Remove",
       "report": "Report"
+    },
+    "hint": {
+      "noQuotes": "We have nothing for this request",
+      "addQuotes": "Please contribute to filling our app with interesting quotes"
+    },
+    "search": {
+      "label": {
+        "author": "Author",
+        "book": "Book",
+        "category": "Category",
+        "text": "Text",
+        "tags": "Tags"
+      }
     }
   },
   "dialog": {
