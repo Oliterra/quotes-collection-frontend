@@ -36,3 +36,9 @@ export class TagVO {
   public id: number;
   public name: string;
 }
+
+export class UserQuoteRatingVO {
+  public userId: number;
+  public quoteId: number;
+  public rating: number;
+}

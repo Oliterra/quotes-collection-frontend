@@ -3,6 +3,7 @@ import {TranslateService} from '@ngx-translate/core';
 import {environment} from '../../../environments/environment';
 import {ActivatedRoute, Router} from "@angular/router";
 import {RouteNavigationService} from "../../routing/route-navigation.service";
+import {QuoteService} from "../../service/quote.service";
 
 @Component({
   selector: 'app-menu-sidebar',
@@ -18,7 +19,8 @@ export class MenuSidebarComponent {
 
   constructor(private activatedRoute: ActivatedRoute,
               private router: Router,
-              private translateService: TranslateService) {
+              private translateService: TranslateService,
+              private quoteService: QuoteService) {
     this.translateService = translateService;
   }
 
@@ -39,10 +41,12 @@ export class MenuSidebarComponent {
   }
 
   public goToMyQuotes(): void {
+    this.quoteService.resetFilter();
     this.router.navigate([this.myQuotesUrl], {replaceUrl: true});
   }
 
   public goToSearchQuotes(): void {
+    this.quoteService.resetFilter();
     this.router.navigate([this.searchQuotesUrl], {replaceUrl: true});
   }
 

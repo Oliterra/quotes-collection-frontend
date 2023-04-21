@@ -1,13 +1,14 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {GroupVO, QuoteMainInfoVO} from "../../model/vo/project.vo";
+import {ChangeDetectorRef, Component, Input, OnInit} from '@angular/core';
+import {GroupVO, QuoteMainInfoVO, TagVO} from "../../model/vo/project.vo";
 import {QuoteService} from "../../service/quote.service";
-import {Observable, tap} from "rxjs";
+import {Observable, Subject, tap} from "rxjs";
 import {Dictionary} from 'typescript-collections';
 import {TranslateService} from "@ngx-translate/core";
 import {UserService} from "../../service/user.service";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {WindowService} from "../../service/window.service";
 import {QuoteFilterVO, QuoteListVO} from "../../model/vo/supplementary.vo";
+import {RouteNavigationService} from "../../routing/route-navigation.service";
 
 export interface QuoteInfo {
   quote: QuoteMainInfoVO,
@@ -28,51 +29,57 @@ export class QuoteListComponent implements OnInit {
   @Input()
   public isUserQuotes: boolean;
 
-  private cashedQuotesPages: Dictionary<number, QuoteInfo[]>;
-  private cashedFilteredQuotesPages: Dictionary<number, QuoteInfo[]>;
-
   public pageQuotes: QuoteInfo[];
   public isLoading: boolean = false;
+  public filter: Subject<void> = new Subject<void>();
 
   private quotesCount: number;
   private lastPageCount: number;
   private currentPageNumber: number = this.INITIAL_PAGE_NUMBER;
-  private isFiltered: boolean;
+  private isFiltered: boolean = false;
+  private cashedQuotesPages: Dictionary<number, QuoteInfo[]>;
+  private cashedFilteredQuotesPages: Dictionary<number, QuoteInfo[]>;
 
-  constructor(private route: ActivatedRoute,
+  constructor(private activatedRoute: ActivatedRoute,
+              private router: Router,
               private translateService: TranslateService,
               private quoteService: QuoteService,
               private userLoginService: UserService,
-              private windowService: WindowService) {
+              private windowService: WindowService,
+              private changeDetectorRef: ChangeDetectorRef) {
     this.cashedQuotesPages = new Dictionary<number, QuoteInfo[]>();
     this.cashedFilteredQuotesPages = new Dictionary<number, QuoteInfo[]>();
   }
 
   public ngOnInit(): void {
-    this.isUserQuotes = this.route.snapshot.data['isUserQuotes'];
-    this.loadQuotesInitially(null);
+    this.isUserQuotes = this.activatedRoute.snapshot.data['isUserQuotes'];
+    this.loadQuotesInitially();
   }
 
-  private loadQuotesInitially(quoteFilter: QuoteFilterVO): void {
+  private loadQuotesInitially(): void {
     this.isLoading = true;
+    this.isFiltered = Boolean(this.quoteService.quoteFilter);
     let quoteListObservable: Observable<QuoteListVO>;
-    if (quoteFilter) {
-      quoteListObservable = this.quoteService.getFilteredQuotes(quoteFilter);
+    if (this.isFiltered) {
+      quoteListObservable = this.quoteService.getFilteredQuotes(this.quoteService.quoteFilter);
     } else {
       quoteListObservable = this.isUserQuotes
         ? this.quoteService.getUserQuotesMainInfoPage(this.userLoginService.currentUserId, this.INITIAL_PAGE_NUMBER, this.QUOTES_PER_PAGE_COUNT)
         : this.quoteService.getAllQuotesMainInfoPage(this.INITIAL_PAGE_NUMBER, this.QUOTES_PER_PAGE_COUNT);
     }
-    quoteListObservable.pipe(tap(() => this.isLoading = false)).subscribe((quoteList: QuoteListVO) => {
-      this.quotesCount = quoteList.count;
-      this.lastPageCount = Math.trunc(this.quotesCount / this.QUOTES_PER_PAGE_COUNT);
-      if (this.isFiltered && quoteFilter) {
-        this.cashFilteredQuotes(quoteList);
-        this.pageQuotes = this.cashedFilteredQuotesPages.getValue(this.INITIAL_PAGE_NUMBER);
-      } else {
-        this.pageQuotes = this.getQuotesInfo(quoteList.quotes);
-      }
-    });
+    quoteListObservable.pipe(tap(() => this.isLoading = false))
+      .subscribe((quoteList: QuoteListVO) => {
+        this.quotesCount = quoteList.count;
+        this.lastPageCount = Math.trunc(this.quotesCount / this.QUOTES_PER_PAGE_COUNT);
+        if (this.isFiltered) {
+          this.clearCash();
+          this.cashFilteredQuotes(quoteList);
+          this.pageQuotes = this.cashedFilteredQuotesPages.getValue(this.INITIAL_PAGE_NUMBER);
+          this.filter.next();
+        } else {
+          this.pageQuotes = this.getQuotesInfo(quoteList.quotes);
+        }
+      });
   }
 
   public get isCurrentUserGuest(): boolean {
@@ -82,7 +89,8 @@ export class QuoteListComponent implements OnInit {
   public addQuote(): void {
     this.windowService.openAddQuoteDialog().subscribe(() => {
       this.clearCash();
-      this.loadQuotesInitially(null);
+      this.isFiltered = false;
+      this.loadQuotesInitially();
     });
   }
 
@@ -167,20 +175,51 @@ export class QuoteListComponent implements OnInit {
     }));
   }
 
+  public onAuthorClick(quoteMainInfo: QuoteMainInfoVO) {
+    const authorFilter: QuoteFilterVO = new QuoteFilterVO();
+    authorFilter.authorId = quoteMainInfo.book.author.id;
+    this.filterByCriteria(authorFilter);
+  }
+
+  public onVisibilityClick(quoteInfo: QuoteInfo) {
+    this.quoteService.changeQuoteVisibility(quoteInfo.quote.id).subscribe((updatedQuote: QuoteMainInfoVO) => quoteInfo.quote = updatedQuote);
+  }
+
+  public onBookClick(quoteMainInfo: QuoteMainInfoVO) {
+    const bookFilter: QuoteFilterVO = new QuoteFilterVO();
+    bookFilter.bookId = quoteMainInfo.book.id;
+    this.filterByCriteria(bookFilter);
+  }
+
+  public onTagClick(tag: TagVO) {
+    const tagFilter: QuoteFilterVO = new QuoteFilterVO();
+    tagFilter.tagIds = [tag.id];
+    this.filterByCriteria(tagFilter);
+  }
+
+  public filterByCriteria(quoteFilter: QuoteFilterVO): void {
+    this.quoteService.quoteFilter = quoteFilter;
+    if (this.isUserQuotes) {
+      this.router.navigate([RouteNavigationService.SEARCH_QUOTES_URL]);
+    } else {
+      this.loadQuotesInitially();
+    }
+  }
+
   private clearCash(): void {
     this.cashedQuotesPages.clear();
     this.cashedFilteredQuotesPages.clear();
   }
 
-  public onFilter(quoteFilter: QuoteFilterVO): void {
+  public onFilter(): void {
     this.isFiltered = true;
     this.clearCash();
-    this.loadQuotesInitially(quoteFilter);
+    this.loadQuotesInitially();
   }
 
   public onFilterReset(): void {
     this.isFiltered = false;
     this.clearCash();
-    this.loadQuotesInitially(null);
+    this.loadQuotesInitially();
   }
 }

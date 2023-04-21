@@ -1,0 +1,11 @@
+<div class="inline-flex align-items-center">
+  <p class="m-0">{{'quote.label.rating' | translate }}:&nbsp;</p>
+  <p *ngIf="!showOptions" class="mark fs-18" (mouseover)="openOptions()">{{rating}}</p>
+  <div *ngIf="showOptions" class="inline-flex col-gap-5" (mouseleave)="close()">
+    <p *ngFor="let mark of marks" class="mark"
+       [class.selectedMark]="isMarkSelected(mark)"
+       (click)="putRating(mark)">
+      {{mark}}
+    </p>
+  </div>
+</div>

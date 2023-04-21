@@ -63,25 +63,6 @@ export class InputDropdownComponent implements OnInit, OnChanges {
     }
   }
 
-  public get formControl(): FormControl {
-    return this.control as FormControl
-  }
-
-  public getDropdownHeight(): string {
-    let itemsCount: number = this.filteredItemInfos.length < this.maxItemsCount ? this.filteredItemInfos.length : this.maxItemsCount;
-    return this.LI_HEIGHT * itemsCount + 'px';
-  }
-
-  public get filteredItemInfos(): ItemInfo[] {
-    if (!this.isReadonly && this.formControl.value) {
-      return this.itemInfos.filter((itemInfo: any) =>
-        (this.isFirstCharacterSpecial ? String(this.getItemName(itemInfo)).substring(1) : String(this.getItemName(itemInfo)))
-          .startsWith(this.formControl.value) && this.getItemName(itemInfo) !== this.formControl.value);
-    } else {
-      return this.itemInfos;
-    }
-  }
-
   public onInput(): void {
     const selectedItem: any = this.items.find((item: any) => item[this.NAME_FIELD] === this.formControl.value);
     if (selectedItem) {
@@ -90,18 +71,6 @@ export class InputDropdownComponent implements OnInit, OnChanges {
       this.onItemUnselection.next(null);
     }
     this.openFilteredItemsDropdown();
-  }
-
-  public openFilteredItemsDropdown(): void {
-    this.isOpen = true;
-  }
-
-  public closeFilteredItemsDropdown(): void {
-    this.isOpen = false;
-  }
-
-  public getItemName(itemInfo: ItemInfo): string {
-    return itemInfo.item[this.NAME_FIELD];
   }
 
   public onClick(itemInfo: ItemInfo): void {
@@ -116,6 +85,37 @@ export class InputDropdownComponent implements OnInit, OnChanges {
       this.onItemSelection.next(itemInfo.item);
       this.formControl.setValue(this.getItemName(itemInfo));
     }
+  }
+
+  public get formControl(): FormControl {
+    return this.control as FormControl
+  }
+
+  public get filteredItemInfos(): ItemInfo[] {
+    if (!this.isReadonly && this.formControl.value) {
+      return this.itemInfos.filter((itemInfo: any) =>
+        (this.isFirstCharacterSpecial ? String(this.getItemName(itemInfo)).substring(1) : String(this.getItemName(itemInfo)))
+          .startsWith(this.formControl.value) && this.getItemName(itemInfo) !== this.formControl.value);
+    } else {
+      return this.itemInfos;
+    }
+  }
+
+  public getDropdownHeight(): string {
+    let itemsCount: number = this.filteredItemInfos.length < this.maxItemsCount ? this.filteredItemInfos.length : this.maxItemsCount;
+    return this.LI_HEIGHT * itemsCount + 'px';
+  }
+
+  public getItemName(itemInfo: ItemInfo): string {
+    return itemInfo.item[this.NAME_FIELD];
+  }
+
+  public openFilteredItemsDropdown(): void {
+    this.isOpen = true;
+  }
+
+  public closeFilteredItemsDropdown(): void {
+    this.isOpen = false;
   }
 
   private onMultiselectItemSelection(itemInfo: ItemInfo): void {

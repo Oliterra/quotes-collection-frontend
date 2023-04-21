@@ -1,0 +1,22 @@
+@import "colors";
+
+.mark {
+  margin: 0;
+  padding: 0 8px;
+  border-radius: 8px;
+  background-color: $colorSecondary;
+  color: $colorPrimary;
+
+  &:hover {
+    background-color: $colorSecondaryHover;
+  }
+}
+
+.selectedMark {
+  background-color: $colorSupplementaryBright;
+  color: white;
+
+  &:hover {
+    background-color: $colorSupplementaryBright;
+  }
+}

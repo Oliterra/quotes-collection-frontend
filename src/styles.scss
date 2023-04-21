@@ -118,6 +118,10 @@ input[readonly], textarea[readonly] {
   left: auto !important;
 }
 
+.inline-flex {
+  display: inline-flex;
+}
+
 .row-gap-10 {
   column-gap: 10px;
 }
