@@ -20,6 +20,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {QuoteSearchComponent} from './component/quote-search/quote-search.component';
 import {InputDropdownComponent} from './component/dropdown/input-dropdown.component';
 import {AutosizeModule} from "ngx-autosize";
+import { RatingComponent } from './component/rating/rating.component';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
@@ -33,6 +34,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     AddQuoteComponent,
     QuoteSearchComponent,
     InputDropdownComponent,
+    RatingComponent,
   ],
   imports: [
     BrowserModule,

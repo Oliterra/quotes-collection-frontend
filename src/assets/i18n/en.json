@@ -35,7 +35,8 @@
   "quote": {
     "label": {
       "addedBy": "Added by",
-      "add": "Add quote"
+      "add": "Add quote",
+      "rating": "Mark"
     },
     "menu": {
       "addToGroup": "Add to group",

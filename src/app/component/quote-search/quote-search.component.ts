@@ -7,6 +7,7 @@ import {BookService} from "../../service/book.service";
 import {AuthorService} from "../../service/author.service";
 import {CategoryService} from "../../service/category.service";
 import {TagService} from "../../service/tag.service";
+import {QuoteService} from "../../service/quote.service";
 
 @Component({
   selector: 'app-quote-search',
@@ -16,12 +17,12 @@ import {TagService} from "../../service/tag.service";
 export class QuoteSearchComponent implements OnInit {
 
   @Input()
-  public isUserQuotes: boolean;
-  @Input()
   public isAdvancedSearch: boolean = false;
+  @Input()
+  public externalFilter: Subject<void> = new Subject<void>();
 
   @Output()
-  public onFilter: Subject<QuoteFilterVO> = new Subject<QuoteFilterVO>();
+  public onFilter: Subject<void> = new Subject<void>();
   @Output()
   public onFilterReset: Subject<void> = new Subject<void>();
 
@@ -42,10 +43,11 @@ export class QuoteSearchComponent implements OnInit {
   constructor(private authorService: AuthorService,
               private bookService: BookService,
               private categoryService: CategoryService,
-              private tagService: TagService) {
+              private tagService: TagService,
+              private quoteService: QuoteService) {
   }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     forkJoin([this.authorService.getAllAuthors(), this.bookService.getAllBooks(),
       this.categoryService.getAllCategories(), this.tagService.getAllTags()
     ]).subscribe(([authors, books, categories, tag]) => {
@@ -54,6 +56,7 @@ export class QuoteSearchComponent implements OnInit {
       this.categories = categories;
       this.tags = tag;
     });
+    this.externalFilter.subscribe(() => this.onExternalFilter());
     this.searchFormGroup = new FormGroup({
       book: new FormControl(''),
       author: new FormControl(''),
@@ -85,20 +88,38 @@ export class QuoteSearchComponent implements OnInit {
   }
 
   public find(): void {
-    const quoteFilter: QuoteFilterVO = {
+    this.quoteService.quoteFilter = {
       authorId: this.authorId,
       bookId: this.bookId,
       categoryIds: this.categoryIds,
       text: this.searchFormGroup.get('text').value,
       tagIds: this.tagIds
     };
-    this.onFilter.next(quoteFilter);
-    this.searchFormGroup.reset();
+    this.onFilter.next();
     this.canReset = true;
   }
 
+  public onExternalFilter(): void {
+    this.searchFormGroup.reset();
+    const externalQuoteFilter: QuoteFilterVO = this.quoteService.quoteFilter;
+    if (externalQuoteFilter) {
+      if (externalQuoteFilter.authorId) {
+        this.searchFormGroup.get('author').setValue(this.authors.find((author: AuthorVO) => author.id === externalQuoteFilter.authorId).name);
+      }
+      if (externalQuoteFilter.bookId) {
+        this.searchFormGroup.get('book').setValue(this.books.find((book: BookVO) => book.id === externalQuoteFilter.bookId).name);
+      }
+      if (externalQuoteFilter.tagIds) {
+        this.searchFormGroup.get('tags').setValue(this.tags.find((tag: TagVO) => tag.id === externalQuoteFilter.tagIds[0]).name);
+      }
+      this.canReset = true;
+    }
+  }
+
   public reset(): void {
+    this.quoteService.resetFilter();
     this.onFilterReset.next();
+    this.searchFormGroup.reset();
     this.canReset = false;
   }
 }
