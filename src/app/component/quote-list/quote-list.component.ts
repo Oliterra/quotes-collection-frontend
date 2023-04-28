@@ -45,8 +45,7 @@ export class QuoteListComponent implements OnInit {
               private translateService: TranslateService,
               private quoteService: QuoteService,
               private userLoginService: UserService,
-              private windowService: WindowService,
-              private changeDetectorRef: ChangeDetectorRef) {
+              private windowService: WindowService) {
     this.cashedQuotesPages = new Dictionary<number, QuoteInfo[]>();
     this.cashedFilteredQuotesPages = new Dictionary<number, QuoteInfo[]>();
   }

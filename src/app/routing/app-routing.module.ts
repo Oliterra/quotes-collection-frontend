@@ -2,6 +2,7 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {RouteNavigationService} from './route-navigation.service';
 import {QuoteListComponent} from "../component/quote-list/quote-list.component";
+import {LibraryComponent} from "../component/library/library.component";
 
 const routes: Routes = [
   {
@@ -24,6 +25,10 @@ const routes: Routes = [
     data: {
       isUserQuotes: false
     }
+  },
+  {
+    path: RouteNavigationService.LIBRARY_URL,
+    component: LibraryComponent
   }
 ];
 

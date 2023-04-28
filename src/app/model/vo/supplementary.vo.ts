@@ -12,3 +12,9 @@ export class QuoteFilterVO {
   public text: string;
   public tagIds: number[] = [];
 }
+
+export class BookFilterVO {
+  public bookId: number;
+  public authorId: number;
+  public categoryIds: number[] = [];
+}

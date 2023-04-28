@@ -6,7 +6,10 @@ export class AuthorVO {
 export class BookVO {
   public id: number;
   public name: string;
+  public userId: number;
   public author: AuthorVO;
+  public categories: CategoryVO[];
+  public quotesCount: number;
 }
 
 export class CategoryVO {

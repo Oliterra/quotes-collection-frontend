@@ -59,6 +59,15 @@
       }
     }
   },
+  "library": {
+    "label": {
+      "add": "Add book",
+      "bookHeader": "Book name",
+      "authorHeader": "Author",
+      "categoryHeader": "Category",
+      "quotesHeader": "Added quotes"
+    }
+  },
   "dialog": {
     "addQuote": {
       "title": "Add quote",
@@ -71,6 +80,15 @@
         "publicQuote": "Let everyone see",
         "addToGroup": "Add to group",
         "addTags": "Add tags"
+      }
+    },
+    "bookInfo": {
+      "addTitle": "Add new book",
+      "editTitle": "Change book info",
+      "label": {
+        "name": "What is the title of the book?",
+        "author": "Who is the author?",
+        "category": "To what category can the book be classified?"
       }
     }
   }

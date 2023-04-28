@@ -30,7 +30,7 @@ export class QuoteService {
     this._quoteFilter = value;
   }
 
-  public resetFilter(): void {
+  public resetQuoteFilter(): void {
     this._quoteFilter = null;
   }
 

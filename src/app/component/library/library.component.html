@@ -1,0 +1,88 @@
+<div class="d-flex justify-content-between library-container">
+  <app-menu-sidebar></app-menu-sidebar>
+  <div class="d-flex flex-column justify-content-between w-100 library-wrapper">
+    <div class="d-flex justify-content-end mb-2">
+      <button class="btn btn-primary add-button"
+              (click)="addBook()">
+        {{'library.label.add' | translate }}
+      </button>
+    </div>
+    <perfect-scrollbar>
+      <div class="w-100">
+        <app-search [isAdvancedSearch]="false"
+                    (onFilter)="onFilter()"
+                    (onFilterReset)="onFilterReset()">
+        </app-search>
+        <div class="pr-3">
+          <table class="table">
+            <thead>
+            <tr class="col-12 book-header primary">
+              <th class="col-3">
+                {{'library.label.bookHeader' | translate}}
+                <div class="order-icons">
+                  <span *ngIf="isOrderedByNameAsc"
+                        class="material-symbols-outlined"
+                        (click)="orderByName(false)">
+                    arrow_drop_up
+                  </span>
+                  <span *ngIf="!isOrderedByNameAsc"
+                        class="material-symbols-outlined"
+                        (click)="orderByName(true)">
+                    arrow_drop_down
+                  </span>
+                </div>
+              </th>
+              <th class="col-3">
+                {{'library.label.authorHeader' | translate}}
+                <div class="order-icons">
+                  <span *ngIf="isOrderedByAuthorAsc"
+                        class="material-symbols-outlined"
+                        (click)="orderByAuthor(false)">
+                    arrow_drop_up
+                  </span>
+                  <span *ngIf="!isOrderedByAuthorAsc"
+                        class="material-symbols-outlined"
+                        (click)="orderByAuthor(true)">
+                    arrow_drop_down
+                  </span>
+                </div>
+              </th>
+              <th class="col-4">{{'library.label.categoryHeader' | translate}}</th>
+              <th class="col-1">
+                {{'library.label.quotesHeader' | translate}}
+                <div class="order-icons">
+                  <span *ngIf="isOrderedByQuotesCountAsc"
+                        class="material-symbols-outlined"
+                        (click)="orderByQuotesCount(false)">
+                    arrow_drop_up
+                  </span>
+                  <span *ngIf="!isOrderedByQuotesCountAsc"
+                        class="material-symbols-outlined"
+                        (click)="orderByQuotesCount(true)">
+                    arrow_drop_down
+                  </span>
+                </div>
+              </th>
+              <th class="col-1"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="col-12 book-list primary" *ngFor="let book of books">
+              <td class="col-3">{{book.name}}</td>
+              <td class="col-3">{{book.author.name}}</td>
+              <td class="col-4">{{getBookCategories(book)}}</td>
+              <td class="col-1 text-center">{{book.quotesCount}}</td>
+              <td class="col-1 edit-icon" *ngIf="isCurrentUserBook(book)"
+                  (click)="editBook(book)">
+                <span class="material-symbols-outlined bold">edit</span>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </perfect-scrollbar>
+  </div>
+</div>
+
+<ngx-loading [show]="isLoading"></ngx-loading>

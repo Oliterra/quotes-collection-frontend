@@ -59,6 +59,15 @@
       }
     }
   },
+  "library": {
+    "label": {
+      "add": "Дадаць кнігу",
+      "bookHeader": "Назва кнігі",
+      "authorHeader": "Аўтар",
+      "categoryHeader": "Катэгорыя",
+      "quotesHeader": "Даданыя цытаты"
+    }
+  },
   "dialog": {
     "addQuote": {
       "title": "Дадаць цытату",
@@ -71,6 +80,15 @@
         "publicQuote": "Няхай усе бачаць",
         "addToGroup": "Дадаць у группу",
         "addTags": "Дадайце тэгі"
+      }
+    },
+    "bookInfo": {
+      "addTitle": "Дадаць кнігу",
+      "editTitle": "Змяніць звесткі аб кнізе",
+      "label": {
+        "name": "Якая назва ў кніге?",
+        "author": "Хто аўтар?",
+        "category": "Да якой катэгорыі можна аднесці кнігу ?"
       }
     }
   }

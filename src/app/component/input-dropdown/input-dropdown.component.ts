@@ -56,10 +56,8 @@ export class InputDropdownComponent implements OnInit, OnChanges {
 
   public ngOnChanges(): void {
     if (this.items && !this.itemInfos) {
-      this.itemInfos = this.items.map((item: any) => ({
-        item: item,
-        isSelected: false
-      }));
+      this.updateItemsSelection();
+      this.itemInfos.filter((itemInfo: ItemInfo) => itemInfo.isSelected).forEach((itemInfo: any) => this.onItemSelection.next(itemInfo.item));
     }
   }
 
@@ -71,6 +69,7 @@ export class InputDropdownComponent implements OnInit, OnChanges {
       this.onItemUnselection.next(null);
     }
     this.openFilteredItemsDropdown();
+    this.updateItemsSelection();
   }
 
   public onClick(itemInfo: ItemInfo): void {
@@ -85,6 +84,7 @@ export class InputDropdownComponent implements OnInit, OnChanges {
       this.onItemSelection.next(itemInfo.item);
       this.formControl.setValue(this.getItemName(itemInfo));
     }
+    this.updateItemsSelection();
   }
 
   public get formControl(): FormControl {
@@ -118,6 +118,14 @@ export class InputDropdownComponent implements OnInit, OnChanges {
     this.isOpen = false;
   }
 
+  private updateItemsSelection(): void {
+    const selectedItems: string[] = this.formControl.value.toString().split(this.MULTISELECT_DELIMITER);
+    this.itemInfos = this.items.map((item: any) => ({
+      item: item,
+      isSelected: selectedItems.includes(item[this.NAME_FIELD])
+    }));
+  }
+
   private onMultiselectItemSelection(itemInfo: ItemInfo): void {
     itemInfo.isSelected = true;
     this.onItemSelection.next(itemInfo.item);
@@ -126,7 +134,7 @@ export class InputDropdownComponent implements OnInit, OnChanges {
       this.formControl.reset();
     } else {
       let selectedItemNames: string = this.formControl.value;
-      if (this.formControl.value.length) {
+      if (this.formControl.value?.length) {
         selectedItemNames = selectedItemNames + this.MULTISELECT_DELIMITER;
       }
       selectedItemNames = selectedItemNames + this.getItemName(itemInfo);

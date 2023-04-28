@@ -11,11 +11,11 @@
     </div>
     <perfect-scrollbar>
       <div class="w-100">
-        <app-quote-search [isAdvancedSearch]="true"
+        <app-search [isAdvancedSearch]="true"
                           [externalFilter]="filter"
                           (onFilter)="onFilter()"
                           (onFilterReset)="onFilterReset()">
-        </app-quote-search>
+        </app-search>
         <ng-container *ngFor="let quoteInfo of pageQuotes">
           <div class="quote-block">
             <ng-container [ngTemplateOutlet]="quoteTopBar"

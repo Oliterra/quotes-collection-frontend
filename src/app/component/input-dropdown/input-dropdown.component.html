@@ -19,7 +19,7 @@
          (mouseleave)="closeFilteredItemsDropdown()">
       <perfect-scrollbar>
         <div class="scrollable-container-vertical">
-          <ul class="item-list p-0">
+          <ul class="item-list">
             <li *ngFor="let itemInfo of filteredItemInfos" class="item"
                 [class.selected]="itemInfo.isSelected"
                 (click)="onClick(itemInfo)">
