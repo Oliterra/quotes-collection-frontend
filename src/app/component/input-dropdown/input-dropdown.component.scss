@@ -13,6 +13,8 @@
 }
 
 .item-list {
+  margin: 0;
+  padding: 0;
   list-style: none;
 }
 
@@ -26,6 +28,11 @@
   &:hover.selected {
     background-color: $colorSupplementaryPastelHover !important;
   }
+}
+
+.add-button {
+  display: flex;
+  align-items: center;
 }
 
 .separated-item-btn {

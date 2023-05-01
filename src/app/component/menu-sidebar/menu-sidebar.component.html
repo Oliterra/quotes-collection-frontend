@@ -17,7 +17,8 @@
           <span class="material-symbols-outlined icon-lg filled">manage_search</span>
           <a>{{'menu.label.searchQuotes' | translate }}</a>
         </li>
-        <li>
+        <li [class.activeRoure]="isActiveRoute(libraryUrl)"
+            (click)="goToLibrary()">
           <span class="material-symbols-outlined icon-lg filled">library_books</span>
           <a>{{'menu.label.library' | translate }}</a>
         </li>

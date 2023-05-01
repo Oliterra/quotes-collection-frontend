@@ -17,4 +17,8 @@ export class AuthorService {
   public getAllAuthors(): Observable<AuthorVO[]> {
     return this.http.get<AuthorVO[]>(`${AppConstants.API_URL}/${this.AUTHOR_URL}`);
   }
+
+  public createAuthor(author: AuthorVO): Observable<AuthorVO> {
+    return this.http.post<AuthorVO>(`${AppConstants.API_URL}/${this.AUTHOR_URL}`, author);
+  }
 }

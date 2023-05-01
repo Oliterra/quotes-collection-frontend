@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {GroupVO, QuoteMainInfoVO, TagVO} from "../../model/vo/project.vo";
 import {QuoteService} from "../../service/quote.service";
 import {Observable, Subject, tap} from "rxjs";
@@ -9,6 +9,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {WindowService} from "../../service/window.service";
 import {QuoteFilterVO, QuoteListVO} from "../../model/vo/supplementary.vo";
 import {RouteNavigationService} from "../../routing/route-navigation.service";
+import {SearchMode} from "../search/search-mode";
 
 export interface QuoteInfo {
   quote: QuoteMainInfoVO,
@@ -45,8 +46,7 @@ export class QuoteListComponent implements OnInit {
               private translateService: TranslateService,
               private quoteService: QuoteService,
               private userLoginService: UserService,
-              private windowService: WindowService,
-              private changeDetectorRef: ChangeDetectorRef) {
+              private windowService: WindowService) {
     this.cashedQuotesPages = new Dictionary<number, QuoteInfo[]>();
     this.cashedFilteredQuotesPages = new Dictionary<number, QuoteInfo[]>();
   }
@@ -75,7 +75,9 @@ export class QuoteListComponent implements OnInit {
           this.clearCash();
           this.cashFilteredQuotes(quoteList);
           this.pageQuotes = this.cashedFilteredQuotesPages.getValue(this.INITIAL_PAGE_NUMBER);
-          this.filter.next();
+          if (!this.quoteService.quoteFilter.isSearch) {
+            this.filter.next();
+          }
         } else {
           this.pageQuotes = this.getQuotesInfo(quoteList.quotes);
         }
@@ -175,14 +177,14 @@ export class QuoteListComponent implements OnInit {
     }));
   }
 
+  public onVisibilityClick(quoteInfo: QuoteInfo) {
+    this.quoteService.changeQuoteVisibility(quoteInfo.quote.id).subscribe((updatedQuote: QuoteMainInfoVO) => quoteInfo.quote = updatedQuote);
+  }
+
   public onAuthorClick(quoteMainInfo: QuoteMainInfoVO) {
     const authorFilter: QuoteFilterVO = new QuoteFilterVO();
     authorFilter.authorId = quoteMainInfo.book.author.id;
     this.filterByCriteria(authorFilter);
-  }
-
-  public onVisibilityClick(quoteInfo: QuoteInfo) {
-    this.quoteService.changeQuoteVisibility(quoteInfo.quote.id).subscribe((updatedQuote: QuoteMainInfoVO) => quoteInfo.quote = updatedQuote);
   }
 
   public onBookClick(quoteMainInfo: QuoteMainInfoVO) {
@@ -198,6 +200,7 @@ export class QuoteListComponent implements OnInit {
   }
 
   public filterByCriteria(quoteFilter: QuoteFilterVO): void {
+    quoteFilter.isSearch = false;
     this.quoteService.quoteFilter = quoteFilter;
     if (this.isUserQuotes) {
       this.router.navigate([RouteNavigationService.SEARCH_QUOTES_URL]);
@@ -222,4 +225,6 @@ export class QuoteListComponent implements OnInit {
     this.clearCash();
     this.loadQuotesInitially();
   }
+
+  protected readonly SearchMode = SearchMode;
 }

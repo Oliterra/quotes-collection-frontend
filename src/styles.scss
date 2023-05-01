@@ -91,6 +91,15 @@ input[readonly], textarea[readonly] {
   opacity: 50% !important;
 }
 
+input[type="checkbox"] {
+  width: 2vh;
+  height: 2vh;
+
+  &:checked {
+    background-color: $colorPrimaryTransparent1 !important;
+  }
+}
+
 .shadow {
   -webkit-box-shadow: $shadow;
   -moz-box-shadow: $shadow;

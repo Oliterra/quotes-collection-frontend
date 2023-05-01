@@ -11,11 +11,11 @@
     </div>
     <perfect-scrollbar>
       <div class="w-100">
-        <app-quote-search [isAdvancedSearch]="true"
-                          [externalFilter]="filter"
-                          (onFilter)="onFilter()"
-                          (onFilterReset)="onFilterReset()">
-        </app-quote-search>
+        <app-search [mode]="SearchMode.quoteMode"
+                    [externalFilter]="filter"
+                    (onFilter)="onFilter()"
+                    (onFilterReset)="onFilterReset()">
+        </app-search>
         <ng-container *ngFor="let quoteInfo of pageQuotes">
           <div class="quote-block">
             <ng-container [ngTemplateOutlet]="quoteTopBar"
@@ -43,7 +43,7 @@
           </div>
         </ng-container>
         <div *ngIf="!pageQuotes" class="d-flex flex-column justify-content-center align-items-center">
-          <p class="primary">{{'quote.hint.noQuotes' | translate }}</p>
+          <p class="primary">{{'global.label.noContent' | translate }}</p>
           <img width="450" height="450" src="/assets/images/no_filtered_quotes.svg">
           <p class="primary">{{'quote.hint.addQuotes' | translate }}</p>
         </div>

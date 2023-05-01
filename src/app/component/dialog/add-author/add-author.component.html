@@ -1,0 +1,22 @@
+<div class="modal-header">
+  {{ 'dialog.addAuthor.title' | translate }}
+</div>
+<div class="modal-body">
+  <div class="modal-body-inner d-flex flex-column">
+    <label>{{ 'dialog.addAuthor.label.name' | translate }}</label>
+    <input class="form-control" [formControl]="nameFormControl">
+    <label class="mt-2">{{ 'dialog.addAuthor.label.surname' | translate }}</label>
+    <input class="form-control" [formControl]="surnameFormControl">
+  </div>
+</div>
+<div class="modal-footer">
+  <button class="btn btn-secondary"
+          (click)="close()">
+    {{'global.label.cancel' | translate}}
+  </button>
+  <button class="btn btn-primary"
+          [disabled]="!canBeConfirmed()"
+          (click)="confirm()">
+    {{'global.label.add' | translate}}
+  </button>
+</div>

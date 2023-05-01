@@ -14,19 +14,22 @@
               [readonly]="isReadonly"
               [formControl]="formControl"
               (click)="openFilteredItemsDropdown()"></textarea>
-    <div *ngIf="isOpen && this.items?.length" class="item-dropdown"
+    <div *ngIf="isOpen" class="item-dropdown"
          [style.height]="getDropdownHeight()"
          (mouseleave)="closeFilteredItemsDropdown()">
       <perfect-scrollbar>
-        <div class="scrollable-container-vertical">
-          <ul class="item-list p-0">
-            <li *ngFor="let itemInfo of filteredItemInfos" class="item"
-                [class.selected]="itemInfo.isSelected"
-                (click)="onClick(itemInfo)">
-              {{getItemName(itemInfo)}}
-            </li>
-          </ul>
-        </div>
+        <ul class="item-list">
+          <li class="item d-flex align-items-center" *ngIf="showAddButton"
+              (click)="onItemAdding.next()">
+            <span class="material-symbols-outlined mr-1">add_circle</span>
+            {{'global.label.add' | translate}}
+          </li>
+          <li *ngFor="let itemInfo of filteredItemInfos" class="item"
+              [class.selected]="itemInfo.isSelected"
+              (click)="onClick(itemInfo)">
+            {{getItemName(itemInfo)}}
+          </li>
+        </ul>
       </perfect-scrollbar>
     </div>
   </div>

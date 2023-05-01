@@ -17,10 +17,13 @@ import {PERFECT_SCROLLBAR_CONFIG, PerfectScrollbarConfigInterface, PerfectScroll
 import {AddQuoteComponent} from './component/dialog/add-quote/add-quote.component';
 import {BsModalService} from "ngx-bootstrap/modal";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {QuoteSearchComponent} from './component/quote-search/quote-search.component';
-import {InputDropdownComponent} from './component/dropdown/input-dropdown.component';
+import {SearchComponent} from './component/search/search.component';
+import {InputDropdownComponent} from './component/input-dropdown/input-dropdown.component';
 import {AutosizeModule} from "ngx-autosize";
-import { RatingComponent } from './component/rating/rating.component';
+import {RatingComponent} from './component/rating/rating.component';
+import {LibraryComponent} from './component/library/library.component';
+import {BookInfoComponent} from './component/dialog/add-book/book-info.component';
+import { AddAuthorComponent } from './component/dialog/add-author/add-author.component';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
@@ -32,9 +35,12 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     MenuSidebarComponent,
     QuoteListComponent,
     AddQuoteComponent,
-    QuoteSearchComponent,
+    SearchComponent,
     InputDropdownComponent,
     RatingComponent,
+    LibraryComponent,
+    BookInfoComponent,
+    AddAuthorComponent,
   ],
   imports: [
     BrowserModule,

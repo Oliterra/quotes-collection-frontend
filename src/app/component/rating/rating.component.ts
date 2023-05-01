@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {QuoteMainInfoVO, UserQuoteRatingVO} from "../../model/vo/project.vo";
 import {QuoteService} from "../../service/quote.service";
 import {UserService} from "../../service/user.service";
@@ -8,7 +8,7 @@ import {UserService} from "../../service/user.service";
   templateUrl: './rating.component.html',
   styleUrls: ['./rating.component.scss']
 })
-export class RatingComponent {
+export class RatingComponent implements OnInit {
 
   private readonly _MARKS: number[] = [1, 2, 3, 4, 5];
 
@@ -20,6 +20,14 @@ export class RatingComponent {
 
   constructor(private quoteService: QuoteService,
               private userService: UserService) {
+  }
+
+  public ngOnInit(): void {
+    this.userService.getRatingByUserId(this.userService.currentUserId, this.quote.id).subscribe((userRating: number) => {
+      if (userRating) {
+        this.puttedMark = userRating;
+      }
+    });
   }
 
   public get rating(): string {

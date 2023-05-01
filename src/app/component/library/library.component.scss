@@ -1,0 +1,58 @@
+@import "colors";
+
+.library-container {
+  height: 96vh;
+  margin-top: 2vh;
+}
+
+.library-wrapper {
+  margin: 2vh 15vh;
+}
+
+.add-button {
+  margin-right: 2vh;
+  padding: 5px 40px;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.book-header {
+
+  th {
+    vertical-align: middle;
+    border: none;
+    background-color: $colorSecondary;
+    font-weight: normal;
+  }
+}
+
+.book-list {
+
+  td {
+    vertical-align: middle;
+    border: none;
+  }
+
+  &:hover {
+    background-color: $colorSupplementaryPastel;
+    color: white !important;
+  }
+}
+
+.order-icons {
+  display: inline-block;
+  vertical-align: middle;
+  margin-top: 3px;
+
+  span {
+    font-size: 28px;
+
+    &:hover, &.active {
+      color: $colorSupplementaryBright !important;
+    }
+  }
+}
+
+.edit-icon {
+  text-align: end;
+}

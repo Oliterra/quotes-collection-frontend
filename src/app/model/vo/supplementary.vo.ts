@@ -11,4 +11,12 @@ export class QuoteFilterVO {
   public categoryIds: number[] = [];
   public text: string;
   public tagIds: number[] = [];
+  public isSearch: boolean;
+}
+
+export class BookFilterVO {
+  public bookId: number;
+  public authorId: number;
+  public userId: number;
+  public categoryIds: number[] = [];
 }

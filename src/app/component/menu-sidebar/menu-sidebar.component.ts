@@ -14,6 +14,7 @@ export class MenuSidebarComponent {
 
   public readonly myQuotesUrl: string = RouteNavigationService.MY_QUOTES_URL;
   public readonly searchQuotesUrl: string = RouteNavigationService.SEARCH_QUOTES_URL;
+  public readonly libraryUrl: string = RouteNavigationService.LIBRARY_URL;
   public isHidden: boolean = false;
   public locales: string[] = environment.locales;
 
@@ -41,13 +42,17 @@ export class MenuSidebarComponent {
   }
 
   public goToMyQuotes(): void {
-    this.quoteService.resetFilter();
+    this.quoteService.resetQuoteFilter();
     this.router.navigate([this.myQuotesUrl], {replaceUrl: true});
   }
 
   public goToSearchQuotes(): void {
-    this.quoteService.resetFilter();
+    this.quoteService.resetQuoteFilter();
     this.router.navigate([this.searchQuotesUrl], {replaceUrl: true});
+  }
+
+  public goToLibrary() {
+    this.router.navigate([this.libraryUrl], {replaceUrl: true});
   }
 
   public setLocale(locale: string): void {

@@ -1,0 +1,47 @@
+<div class="modal-header">
+  {{ (book ? 'dialog.bookInfo.editTitle' : 'dialog.bookInfo.addTitle') | translate }}
+</div>
+<div class="modal-body">
+  <div class="modal-body-inner d-flex flex-column">
+    <!--book-->
+    <label>{{ 'dialog.bookInfo.label.name' | translate }}</label>
+    <input class="form-control"
+           [formControl]="bookInfoFormControl"
+           (change)="isBookChanged = true">
+
+    <!--author-->
+    <label class="mt-2">{{ 'dialog.bookInfo.label.author' | translate }}</label>
+    <app-input-dropdown [control]="authorInfoFormControl"
+                        [items]="authors"
+                        [showAddButton]="true"
+                        (onItemSelection)="onAuthorSelection($event)"
+                        (onItemUnselection)="onAuthorUnselection($event)"
+                        (onItemAdding)="onAuthorAdding()">
+    </app-input-dropdown>
+
+    <!--categories-->
+    <label class="mt-2">{{ 'dialog.bookInfo.label.category' | translate }}</label>
+    <app-input-dropdown [control]="categoriesInfoFormControl"
+                        [items]="categories"
+                        [isMultiselect]="true"
+                        [isReadonly]="true"
+                        (onItemSelection)="onCategorySelection($event)"
+                        (onItemUnselection)="onCategoryUnselection($event)">
+    </app-input-dropdown>
+  </div>
+</div>
+<div class="modal-footer">
+  <button class="btn btn-secondary"
+          (click)="close()">
+    {{'global.label.cancel' | translate}}
+  </button>
+  <button class="btn btn-primary"
+          [disabled]="!canBeConfirmed()"
+          (click)="confirm()">
+    {{'global.label.add' | translate}}
+  </button>
+</div>
+
+<ngx-loading [show]="isLoading"></ngx-loading>
+
+
