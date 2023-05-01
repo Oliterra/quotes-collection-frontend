@@ -2,7 +2,8 @@
   "global": {
     "label": {
       "add": "Add",
-      "cancel": "Cancel"
+      "cancel": "Cancel",
+      "noContent": "We have nothing for this request"
     }
   },
   "page": {
@@ -46,7 +47,6 @@
       "report": "Report"
     },
     "hint": {
-      "noQuotes": "We have nothing for this request",
       "addQuotes": "Please contribute to filling our app with interesting quotes"
     },
     "search": {
@@ -55,7 +55,8 @@
         "book": "Book",
         "category": "Category",
         "text": "Text",
-        "tags": "Tags"
+        "tags": "Tags",
+        "addedByUser": "Show only those added by me"
       }
     }
   },
@@ -66,6 +67,9 @@
       "authorHeader": "Author",
       "categoryHeader": "Category",
       "quotesHeader": "Added quotes"
+    },
+    "hint": {
+      "addBooks": "Please contribute to filling our app with books"
     }
   },
   "dialog": {
@@ -89,6 +93,13 @@
         "name": "What is the title of the book?",
         "author": "Who is the author?",
         "category": "To what category can the book be classified?"
+      }
+    },
+    "addAuthor": {
+      "title": "Add author",
+      "label": {
+        "name": "Name",
+        "surname": "Surname"
       }
     }
   }

@@ -4,6 +4,11 @@ import {Observable, tap} from "rxjs";
 import {BookService} from "../../service/book.service";
 import {BookVO} from "../../model/vo/project.vo";
 import {UserService} from "../../service/user.service";
+import {SearchMode} from "../search/search-mode";
+import {BookFilterVO, QuoteFilterVO} from "../../model/vo/supplementary.vo";
+import {RouteNavigationService} from "../../routing/route-navigation.service";
+import {Router} from "@angular/router";
+import {QuoteService} from "../../service/quote.service";
 
 @Component({
   selector: 'app-library',
@@ -12,15 +17,17 @@ import {UserService} from "../../service/user.service";
 })
 export class LibraryComponent implements OnInit {
 
+  protected readonly SearchMode = SearchMode;
+
   public books: BookVO[] = [];
   public isOrderedByNameAsc: boolean = false;
   public isOrderedByAuthorAsc: boolean = false;
   public isOrderedByQuotesCountAsc: boolean = false;
   public isLoading: boolean = false;
 
-  private isFiltered: boolean = false;
-
   constructor(private bookService: BookService,
+              private router: Router,
+              private quoteService: QuoteService,
               private userService: UserService,
               private windowService: WindowService) {
   }
@@ -37,8 +44,8 @@ export class LibraryComponent implements OnInit {
     books.pipe(tap(() => this.isLoading = false))
       .subscribe((books: BookVO[]) => {
         this.books = books;
+        this.orderByName(true);
       });
-    this.orderByName(true);
   }
 
   public addBook(): void {
@@ -60,7 +67,7 @@ export class LibraryComponent implements OnInit {
   public orderByName(isAsc: boolean): void {
     this.isOrderedByNameAsc = isAsc;
     this.books = this.books.sort((firstBook: BookVO, secondBook: BookVO) => {
-      return isAsc ? secondBook.name.localeCompare(firstBook.name) : firstBook.name.localeCompare(secondBook.name);
+      return isAsc ? firstBook.name.localeCompare(secondBook.name) : secondBook.name.localeCompare(firstBook.name);
     });
   }
 
@@ -78,11 +85,38 @@ export class LibraryComponent implements OnInit {
     });
   }
 
+  public findBookQuotes(book: BookVO): void {
+    const quoteFilter: QuoteFilterVO = new QuoteFilterVO();
+    quoteFilter.bookId = book.id;
+    quoteFilter.isSearch = false;
+    this.quoteService.quoteFilter = quoteFilter;
+    this.router.navigate([RouteNavigationService.SEARCH_QUOTES_URL]);
+  }
+
   public onFilter(): void {
     this.loadBooksInitially();
   }
 
   public onFilterReset(): void {
+    this.loadBooksInitially();
+  }
+
+  public showOnlyAddedByUser(showOnlyAddedByUser: boolean): void {
+    let bookFilter: BookFilterVO = this.bookService.bookFilter;
+    if (bookFilter) {
+      if (showOnlyAddedByUser) {
+        bookFilter.userId = this.userService.currentUserId;
+      } else {
+        bookFilter.userId = null;
+      }
+      this.bookService.bookFilter = bookFilter;
+    } else {
+      if (showOnlyAddedByUser) {
+        bookFilter = new BookFilterVO();
+        bookFilter.userId = this.userService.currentUserId;
+        this.bookService.bookFilter = bookFilter;
+      }
+    }
     this.loadBooksInitially();
   }
 }

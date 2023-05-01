@@ -34,11 +34,15 @@ export class InputDropdownComponent implements OnInit, OnChanges {
   public maxItemsCount: number = 3;
   @Input()
   public clean: Subject<any>[] = [];
+  @Input()
+  public showAddButton: boolean = false;
 
   @Output()
   public onItemSelection: Subject<any> = new Subject<any>();
   @Output()
   public onItemUnselection: Subject<any> = new Subject<any>();
+  @Output()
+  public onItemAdding: Subject<void> = new Subject<void>();
 
   public itemInfos: ItemInfo[];
   public isOpen: boolean = false;
@@ -55,7 +59,7 @@ export class InputDropdownComponent implements OnInit, OnChanges {
   }
 
   public ngOnChanges(): void {
-    if (this.items && !this.itemInfos) {
+    if (this.items?.length && !this.itemInfos?.length) {
       this.updateItemsSelection();
       this.itemInfos.filter((itemInfo: ItemInfo) => itemInfo.isSelected).forEach((itemInfo: any) => this.onItemSelection.next(itemInfo.item));
     }
@@ -103,6 +107,9 @@ export class InputDropdownComponent implements OnInit, OnChanges {
 
   public getDropdownHeight(): string {
     let itemsCount: number = this.filteredItemInfos.length < this.maxItemsCount ? this.filteredItemInfos.length : this.maxItemsCount;
+    if (this.showAddButton && itemsCount < this.maxItemsCount) {
+      itemsCount += 1;
+    }
     return this.LI_HEIGHT * itemsCount + 'px';
   }
 
@@ -119,7 +126,10 @@ export class InputDropdownComponent implements OnInit, OnChanges {
   }
 
   private updateItemsSelection(): void {
-    const selectedItems: string[] = this.formControl.value.toString().split(this.MULTISELECT_DELIMITER);
+    let selectedItems: string[] = [];
+    if (this.formControl.value) {
+      selectedItems = this.formControl.value.toString().split(this.MULTISELECT_DELIMITER);
+    }
     this.itemInfos = this.items.map((item: any) => ({
       item: item,
       isSelected: selectedItems.includes(item[this.NAME_FIELD])

@@ -12,3 +12,18 @@
 .scrollable-container {
   height: 100% !important;
 }
+
+.added-by-user {
+  margin-top: 15px;
+  margin-left: 6px;
+
+  input {
+    margin-top: 2px;
+  }
+
+  label {
+    display: flex;
+    align-items: center;
+    margin-left: 5px;
+  }
+}

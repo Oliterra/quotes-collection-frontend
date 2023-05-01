@@ -1,12 +1,13 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {forkJoin, Subject} from "rxjs";
-import {BsModalService} from "ngx-bootstrap/modal";
+import {BsModalRef} from "ngx-bootstrap/modal";
 import {FormControl} from "@angular/forms";
 import {AuthorVO, BookVO, CategoryVO} from "../../../model/vo/project.vo";
 import {BookService} from "../../../service/book.service";
 import {AuthorService} from "../../../service/author.service";
 import {CategoryService} from "../../../service/category.service";
 import {UserService} from "../../../service/user.service";
+import {WindowService} from "../../../service/window.service";
 
 @Component({
   selector: 'app-book-info',
@@ -30,10 +31,11 @@ export class BookInfoComponent implements OnInit {
   public isLoading: boolean = false;
 
   constructor(private authorService: AuthorService,
-              private bsModalService: BsModalService,
+              private bsModalRef: BsModalRef,
               private bookService: BookService,
               private categoryService: CategoryService,
-              private userService: UserService) {
+              private userService: UserService,
+              private windowService: WindowService) {
   }
 
   public ngOnInit(): void {
@@ -69,6 +71,16 @@ export class BookInfoComponent implements OnInit {
   public onCategoryUnselection(unselectedCategory: CategoryVO): void {
     this.isBookChanged = true;
     this.categoryIds = this.categoryIds.filter((id: number) => id !== unselectedCategory.id);
+  }
+
+  public onAuthorAdding(): void {
+    this.windowService.openAddAuthorDialog().subscribe((author: AuthorVO) => {
+      if (author) {
+        this.authors.push(author);
+        this.authorId = author.id;
+        this.authorInfoFormControl.setValue(author.name);
+      }
+    });
   }
 
   public canBeConfirmed() {
@@ -109,7 +121,7 @@ export class BookInfoComponent implements OnInit {
   }
 
   public close(): void {
-    this.bsModalService.hide();
+    this.bsModalRef.hide();
     this.closeEmitter.next(this.book);
   }
 }
