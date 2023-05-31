@@ -3,14 +3,12 @@ import {RouterModule, Routes} from '@angular/router';
 import {RouteNavigationService} from './route-navigation.service';
 import {QuoteListComponent} from "../component/quote-list/quote-list.component";
 import {LibraryComponent} from "../component/library/library.component";
+import {StartPageComponent} from "../component/start-page/start-page.component";
 
 const routes: Routes = [
   {
     path: '',
-    component: QuoteListComponent,
-    data: {
-      isUserQuotes: false
-    }
+    component: StartPageComponent
   },
   {
     path: RouteNavigationService.MY_QUOTES_URL,

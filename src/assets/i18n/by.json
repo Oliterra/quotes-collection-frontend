@@ -6,10 +6,96 @@
       "noContent": "У нас няма нічога для гэтага запыту"
     }
   },
+  "error": {
+    "unknown": "Сталася невядомая памылка",
+    "registration": {
+      "usernameDuplicate": "Імя карыстальніка ўжо занята",
+      "emailDuplicate": "Уліковы запіс для ўведзенага email ужо існуе"
+    },
+    "authorization": {
+      "invalidCredentials": "Няправільнае імя карыстальніка(email) або пароль"
+    }
+  },
   "page": {
     "title": {
       "myQuotes": "Мае нататкі",
       "searchQuotes": "Пошук"
+    }
+  },
+  "start": {
+    "authorization": {
+      "title": "Аўтарызацыя",
+      "name": "Імя",
+      "surname": "Прозвішча",
+      "email": "E-mail",
+      "username": "Лагін",
+      "usernameOrEmail": "Вашае імя або адрас электроннай пошты",
+      "password": "Пароль",
+      "passwordConfirmation": "Пацвердзіце пароль",
+      "passwordMismatch": "Паролі не супадаюць",
+      "signIn": "Увайсці",
+      "signUp": "Зарэгістравацца"
+    },
+    "info": {
+      "goals": {
+        "title": "Для чаго створана прыкладанне:",
+        "points": [
+          {
+            "title": "Давайце ўдзельнічаць у інспірацыі",
+            "isFocused": "true"
+          },
+          {
+            "title": "Запісвайце, што вы хацелі б запомніць з кнігі",
+            "isFocused": "true"
+          },
+          {
+            "title": "Атрымлівайце новыя веды",
+            "isFocused": "true"
+          },
+          {
+            "title": "Дзеляцеся найцікавейшымі кніжнымі думкамі",
+            "isFocused": "true"
+          },
+          {
+            "title": "Развівайце эрудыцыю",
+            "isFocused": "true"
+          }
+        ],
+        "imageSrc": "/assets/images/book.svg"
+      },
+      "features": {
+        "title": "Што можна рабіць у прыкладанні:",
+        "points": [
+          {
+            "title": "Захоўвайце падабаючыяся цытаты з кніг"
+          },
+          {
+            "title": "Стварайце свае падборкі цытат"
+          },
+          {
+            "title": "У прыкладанні яшчэ няма аўтара і кнігі, якую вы чыталі? Дадайце іх у прыкладанне!",
+            "isFocused": "true"
+          },
+          {
+            "title": "Што можна рабіць з цытатамі?",
+            "points": [
+              {
+                "title": "Дзеляцеся цытатамі"
+              },
+              {
+                "title": "Ацэньваць цытаты"
+              },
+              {
+                "title": "Шукаць цытаты"
+              },
+              {
+                "title": "Дадавайце цытаты"
+              }
+            ]
+          }
+        ],
+        "showNumeration": "true"
+      }
     }
   },
   "menu": {

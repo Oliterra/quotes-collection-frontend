@@ -26,6 +26,7 @@ export class QuoteListComponent implements OnInit {
 
   private readonly INITIAL_PAGE_NUMBER: number = 0;
   private readonly QUOTES_PER_PAGE_COUNT: number = 10;
+  protected readonly SearchMode = SearchMode;
 
   @Input()
   public isUserQuotes: boolean;
@@ -225,6 +226,4 @@ export class QuoteListComponent implements OnInit {
     this.clearCash();
     this.loadQuotesInitially();
   }
-
-  protected readonly SearchMode = SearchMode;
 }

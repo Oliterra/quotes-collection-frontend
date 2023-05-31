@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {Observable} from "rxjs";
 import {AppConstants} from "../model/app-constants";
 import {HttpClient, HttpParams} from "@angular/common/http";
+import {CookieService} from "ngx-cookie-service";
 
 @Injectable({
   providedIn: 'root'
@@ -11,15 +12,21 @@ export class UserService {
   private readonly USER_URL: string = 'users';
   private readonly QUOTE_RATING_URL: string = 'quoteRating';
 
-  constructor(private http: HttpClient) {
+  constructor(private cookieService: CookieService,
+              private http: HttpClient) {
   }
 
   public get currentUserId(): number {
-    return 1;
+    const storedUserId = this.cookieService.get('userId');
+    return storedUserId ? parseInt(storedUserId, 10) : null;
+  }
+
+  public set currentUserId(value: number) {
+    this.cookieService.set('userId', value.toString());
   }
 
   public get isUserLoggedIn(): boolean {
-    return true;
+    return Boolean(this.currentUserId);
   }
 
   public getRatingByUserId(userId: number, quoteId: number): Observable<number> {

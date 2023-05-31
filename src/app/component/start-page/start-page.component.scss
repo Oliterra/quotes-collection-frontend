@@ -1,0 +1,95 @@
+@import "colors";
+
+.start-page {
+  height: 100vh;
+}
+
+.header {
+  height: auto;
+}
+
+.page-content {
+  column-gap: 5vh;
+  padding: 5vh 15vh;
+}
+
+.about-app-info {
+  width: 65%;
+}
+
+.block-header {
+  font-size: 22.5px;
+}
+
+.authorization-form {
+  height: auto;
+  width: 35%;
+  padding: 20px;
+  border: 1px solid $colorPrimary;
+  border-radius: 16px;
+}
+
+.authorization-form-body {
+  margin: 20px 0;
+}
+
+.authorization-form-body-inner {
+  row-gap: 15px;
+}
+
+.error {
+  color: $colorErrorPrimary;
+}
+
+.info-item {
+  width: fit-content;
+  padding: 0;
+  font-size: 18px;
+  color: $colorPrimary;
+
+  &.header {
+    margin-bottom: 22px;
+    font-size: 22px;
+    font-weight: bold;
+  }
+
+  &.focused {
+    padding: 4px 10px;
+    background-color: $colorSecondary;
+    border-radius: 16px;
+  }
+}
+
+.info-points {
+  width: fit-content;
+  margin: 0;
+  padding-right: 10px;
+  list-style-type: disc;
+  color: $colorPrimary;
+
+  &.numerated {
+    padding-left: 0;
+    list-style-type: none;
+  }
+
+  &.focused {
+    background-color: $colorSecondary;
+    border-radius: 16px 0 0 16px;
+  }
+
+  li {
+    padding: 2px;
+  }
+}
+
+.numeration {
+  height: 28px;
+  width: 28px;
+  margin-right: 10px;
+  padding: 0 8px;
+  font-size: 22px;
+  font-weight: 550;
+  border-radius: 16px;
+  background-color: $colorPrimary;
+  color: white;
+}

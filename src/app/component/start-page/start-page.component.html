@@ -1,0 +1,115 @@
+<div class="d-flex flex-column start-page">
+  <img class="header w-100" [src]="headerSrc">
+  <div class="d-flex align-items-center h-100 page-content">
+    <div class="about-app-info d-flex flex-column justify-content-between h-100">
+      <div *ngIf="goalInfo">
+        <ng-container *ngTemplateOutlet="infoItem; context: { item: goalInfo, isHeader: true }"></ng-container>
+      </div>
+      <div *ngIf="featureInfo">
+        <ng-container
+          *ngTemplateOutlet="infoItem; context: { item: featureInfo, isHeader: true }"></ng-container>
+      </div>
+    </div>
+    <div class="authorization-form pull-right" [formGroup]="formGroup">
+      <div class="modal-header block-header">
+        {{ 'start.authorization.title' | translate }}
+      </div>
+      <div class="modal-body authorization-form-body">
+        <div class="modal-body-inner d-flex flex-column authorization-form-body-inner">
+          <div *ngIf="isSignUpMode">
+            <label>{{ 'start.authorization.name' | translate }}</label>
+            <input class="form-control"
+                   [class.invalid]="formGroup.get('name').touched && formGroup.get('name').invalid"
+                   formControlName="name">
+          </div>
+          <div *ngIf="isSignUpMode">
+            <label>{{ 'start.authorization.surname' | translate }}</label>
+            <input class="form-control"
+                   [class.invalid]="formGroup.get('surname').touched && formGroup.get('surname').invalid"
+                   formControlName="surname">
+          </div>
+          <div *ngIf="isSignInMode">
+            <label>{{ 'start.authorization.usernameOrEmail' | translate }}</label>
+            <input class="form-control"
+                   formControlName="usernameOrEmail">
+          </div>
+          <div *ngIf="isSignUpMode">
+            <label>{{ 'start.authorization.email' | translate }}</label>
+            <input class="form-control"
+                   [class.invalid]="formGroup.get('email').touched && formGroup.get('email').invalid"
+                   formControlName="email">
+          </div>
+          <div *ngIf="isSignUpMode">
+            <label>{{ 'start.authorization.username' | translate }}</label>
+            <input class="form-control"
+                   formControlName="username">
+          </div>
+          <div>
+            <label>{{ 'start.authorization.password' | translate }}</label>
+            <input class="form-control"
+                   type="password"
+                   formControlName="password">
+          </div>
+          <div *ngIf="isSignUpMode">
+            <label>{{ 'start.authorization.passwordConfirmation' | translate }}</label>
+            <input class="form-control"
+                   type="password"
+                   formControlName="passwordConfirmation">
+          </div>
+          <div *ngIf="isSignUpMode && isPasswordMismatch"
+               class="d-flex error">
+            <span class="material-symbols-outlined mr-1">error</span>
+            <p>{{'start.authorization.passwordMismatch' | translate}}</p>
+          </div>
+          <div *ngIf="errorTranslationKey"
+               class="d-flex error">
+            <span class="material-symbols-outlined mr-1">error</span>
+            <p>{{errorTranslationKey | translate}}</p>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer"
+           [class.flex-row-reverse]="isSignUpMode">
+        <button class="btn"
+                [class.btn-primary]="isSignUpMode"
+                [class.btn-secondary]="isSignInMode"
+                [disabled]="isSignUpMode && !canSignUp"
+                (click)="signUp()">
+          {{'start.authorization.signUp' | translate}}
+        </button>
+        <button class="btn btn-primary"
+                [class.btn-primary]="isSignInMode"
+                [class.btn-secondary]="isSignUpMode"
+                [disabled]="isSignInMode && !canSignIn"
+                (click)="signIn()">
+          {{'start.authorization.signIn' | translate}}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #infoItem let-item="item" let-isHeader="isHeader">
+  <ng-container *ngIf="item">
+    <h3 class="info-item"
+        [class.header]="isHeader"
+        [class.focused]="item.isFocused">
+      {{ item.title }}
+    </h3>
+    <div class="d-flex">
+      <ul *ngIf="item.points"
+          class="info-points"
+          [class.focused]="isAllPointsFocused(item.points)"
+          [class.numerated]="item.showNumeration">
+        <div *ngFor="let point of item.points; let i = index" class="d-flex">
+          <p *ngIf="item.showNumeration" class="d-flex align-items-center numeration">{{ i + 1 }}</p>
+          <li>
+            <ng-container
+              *ngTemplateOutlet="infoItem; context: { item: point, isHeader: false }"></ng-container>
+          </li>
+        </div>
+      </ul>
+      <img *ngIf="item.imageSrc" class="h-100" [src]="item.imageSrc">
+    </div>
+  </ng-container>
+</ng-template>

@@ -53,7 +53,8 @@
           </ul>
         </div>
       </li>
-      <li *ngIf="!isHidden">
+      <li *ngIf="!isHidden"
+          (click)="signOut()">
         <span class="material-symbols-outlined icon-lg">logout</span>
         <a>{{'menu.label.signOut' | translate }}</a>
       </li>

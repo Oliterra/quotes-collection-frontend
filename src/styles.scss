@@ -85,6 +85,11 @@ input, textarea {
   &:active:not([readonly]), &:focus:not([readonly]) {
     background-color: white !important;
   }
+
+  &.invalid:not([readonly]) {
+    border-color: $colorErrorPrimary !important;
+    background-color: $colorErrorSecondary !important;
+  }
 }
 
 input[readonly], textarea[readonly] {
@@ -196,4 +201,12 @@ input[type="checkbox"] {
 
 .primary {
   color: $colorPrimary !important;
+}
+
+.pull-left {
+  float: left;
+}
+
+.pull-right {
+  float: right;
 }

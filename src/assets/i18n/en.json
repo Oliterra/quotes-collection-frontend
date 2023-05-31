@@ -6,10 +6,96 @@
       "noContent": "We have nothing for this request"
     }
   },
+  "error": {
+    "unknown": "An unknown error occurred",
+    "registration": {
+      "usernameDuplicate": "Username is already taken",
+      "emailDuplicate": "An account with the entered email already exists"
+    },
+    "authorization": {
+      "invalidCredentials": "Invalid username(email) or password"
+    }
+  },
   "page": {
     "title": {
       "myQuotes": "My quotes",
       "searchQuotes": "Search"
+    }
+  },
+  "start": {
+    "authorization": {
+      "title": "Authorization",
+      "name": "Name",
+      "surname": "Surname",
+      "email": "E-mail",
+      "username": "Username",
+      "usernameOrEmail": "Your name or email address",
+      "password": "Password",
+      "passwordConfirmation": "Confirm Password",
+      "passwordMismatch": "Passwords do not match",
+      "signIn": "Sign In",
+      "signUp": "Sign Up"
+    },
+    "info": {
+      "goals": {
+        "title": "Purpose of the application:",
+        "points": [
+          {
+            "title": "Get inspired",
+            "isFocused": "true"
+          },
+          {
+            "title": "Record what you want to remember from books",
+            "isFocused": "true"
+          },
+          {
+            "title": "Learn something new",
+            "isFocused": "true"
+          },
+          {
+            "title": "Share the most interesting book thoughts",
+            "isFocused": "true"
+          },
+          {
+            "title": "Develop erudition",
+            "isFocused": "true"
+          }
+        ],
+        "imageSrc": "/assets/images/book.svg"
+      },
+      "features": {
+        "title": "What you can do in the application:",
+        "points": [
+          {
+            "title": "Save favorite quotes from books"
+          },
+          {
+            "title": "Create your own collections of quotes"
+          },
+          {
+            "title": "Is the author or book you are reading not in the application yet? Add them!",
+            "isFocused": "true"
+          },
+          {
+            "title": "What you can do with quotes:",
+            "points": [
+              {
+                "title": "Share quotes"
+              },
+              {
+                "title": "Rate quotes"
+              },
+              {
+                "title": "Search for quotes"
+              },
+              {
+                "title": "Add quotes"
+              }
+            ]
+          }
+        ],
+        "showNumeration": "true"
+      }
     }
   },
   "menu": {

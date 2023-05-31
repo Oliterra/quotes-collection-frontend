@@ -58,4 +58,8 @@ export class MenuSidebarComponent {
   public setLocale(locale: string): void {
     this.translateService.use(locale);
   }
+
+  public signOut(): void {
+    this.router.navigate(['/'], { replaceUrl: true });
+  }
 }

@@ -24,6 +24,7 @@ import {RatingComponent} from './component/rating/rating.component';
 import {LibraryComponent} from './component/library/library.component';
 import {BookInfoComponent} from './component/dialog/add-book/book-info.component';
 import { AddAuthorComponent } from './component/dialog/add-author/add-author.component';
+import { StartPageComponent } from './component/start-page/start-page.component';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
@@ -41,6 +42,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     LibraryComponent,
     BookInfoComponent,
     AddAuthorComponent,
+    StartPageComponent,
   ],
   imports: [
     BrowserModule,
