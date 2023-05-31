@@ -20,3 +20,17 @@ export class BookFilterVO {
   public userId: number;
   public categoryIds: number[] = [];
 }
+
+export class RegistrationInfoVO {
+  public name: string;
+  public surname: string;
+  public email: string;
+  public username: string;
+  public password: string;
+  public passwordConfirmation: string;
+}
+
+export class AuthorizationInfoVO {
+  public usernameOrEmail: string;
+  public password: string;
+}

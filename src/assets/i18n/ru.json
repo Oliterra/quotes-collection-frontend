@@ -6,10 +6,96 @@
       "noContent": "У нас нет ничего по этому запросу"
     }
   },
+  "error": {
+    "unknown": "Произошла неизвестная ошибка",
+    "registration": {
+      "usernameDuplicate": "Имя пользователя уже занято",
+      "emailDuplicate": "Учётная запись для введённого email уже существует"
+    },
+    "authorization": {
+      "invalidCredentials": "Неверное имя пользователя(email) или пароль"
+    }
+  },
   "page": {
     "title": {
       "myQuotes": "Мои цитаты",
       "searchQuotes": "Поиск"
+    }
+  },
+  "start": {
+    "authorization": {
+      "title": "Авторизация",
+      "name": "Имя",
+      "surname": "Фамилия",
+      "email": "E-mail",
+      "username": "Логин",
+      "usernameOrEmail": "Ваше имя или адрес электронной почты",
+      "password": "Пароль",
+      "passwordConfirmation": "Подтвердите пароль",
+      "passwordMismatch": "Пароли не совпадают",
+      "signIn": "Войти",
+      "signUp": "Зарегестироваться"
+    },
+    "info": {
+      "goals": {
+        "title": "Для чего создано приложение:",
+        "points": [
+          {
+            "title": "Вдохновляйся",
+            "isFocused": "true"
+          },
+          {
+            "title": "Записывай то что хотел бы запомнить из книги",
+            "isFocused": "true"
+          },
+          {
+            "title": "Узнавай новое",
+            "isFocused": "true"
+          },
+          {
+            "title": "Делись самыми интересными книжными мыслями",
+            "isFocused": "true"
+          },
+          {
+            "title": "Развивай эрудицию ",
+            "isFocused": "true"
+          }
+        ],
+        "imageSrc": "/assets/images/book.svg"
+      },
+      "features": {
+        "title": "Что можно делать в приложении:",
+        "points": [
+          {
+            "title": "Сохраняй понравившиеся цитаты из книг"
+          },
+          {
+            "title": "Создавай свои подборки цитат"
+          },
+          {
+            "title": "В приложении ещё нет автора и книги которую ты читаешь? Добавь их в приложение!",
+            "isFocused": "true"
+          },
+          {
+            "title": "Что можно делать с цитатами?",
+            "points": [
+              {
+                "title": "Делись цитатами"
+              },
+              {
+                "title": "Оценивай цитаты"
+              },
+              {
+                "title": "Ищи цитаты"
+              },
+              {
+                "title": "Добавляй цитаты"
+              }
+            ]
+          }
+        ],
+        "showNumeration": "true"
+      }
     }
   },
   "menu": {

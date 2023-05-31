@@ -25,6 +25,7 @@
     "material-symbols": "^0.4.5",
     "ngx-autosize": "^2.0.4",
     "ngx-bootstrap": "^10.2.0",
+    "ngx-cookie-service": "^16.0.0",
     "ngx-loading": "^15.0.0",
     "ngx-perfect-scrollbar": "^10.1.1",
     "ngx-popover": "0.0.16",
