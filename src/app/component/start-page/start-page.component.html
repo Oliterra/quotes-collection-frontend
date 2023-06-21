@@ -1,5 +1,10 @@
 <div class="d-flex flex-column start-page">
-  <img class="header w-100" [src]="headerSrc">
+  <div class="header-container" #headerContainer>
+    <img class="header w-100" [src]="headerSrc" (load)="updateLocaleSwitcherSize()">
+    <button class="btn btn-transparent locale-switcher" (click)="setLocale()">
+      <span class="material-symbols-outlined" [ngStyle]="localeSwitcherStyle">translate</span>
+    </button>
+  </div>
   <div class="d-flex align-items-center h-100 page-content">
     <div class="about-app-info d-flex flex-column justify-content-between h-100">
       <div *ngIf="goalInfo">

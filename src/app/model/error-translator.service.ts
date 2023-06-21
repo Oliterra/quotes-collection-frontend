@@ -8,7 +8,7 @@ const ERROR_CODES: ErrorCodes = {
   UNKNOWN_ERROR: 'error.unknown',
   EMAIL_DUPLICATE_ERROR: 'error.registration.emailDuplicate',
   USERNAME_DUPLICATE_ERROR: 'error.registration.usernameDuplicate',
-  INCORRECT_USER_CREDITS_ERROR: 'error.authorization.invalidCredentials'
+  INVALID_CREDENTIALS_ERROR: 'error.authorization.invalidCredentials'
 };
 
 @Injectable({

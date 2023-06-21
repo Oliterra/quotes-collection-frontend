@@ -1,4 +1,12 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  HostListener,
+  OnInit,
+  ViewChild
+} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {HttpClient} from '@angular/common/http';
@@ -9,6 +17,8 @@ import {UserService} from "../../service/user.service";
 import {Router} from "@angular/router";
 import {RouteNavigationService} from "../../routing/route-navigation.service";
 import {catchError, Observable, ObservableInput, of, tap} from "rxjs";
+import {AppConstants} from "../../model/app-constants";
+import {environment} from "../../../environments/environment";
 
 enum LoginMode {
   signIn,
@@ -31,16 +41,23 @@ interface InfoItem {
 })
 export class StartPageComponent implements OnInit {
 
-  private readonly TRANSLATIONS_SOURCE: string = '/assets/i18n/';
+  private readonly FONT_SIZE_STYLE_NAME: string = 'font-size';
   private readonly HEADER_PREFIX: string = '/assets/images/header_';
   private readonly HEADER_EXTENSION: string = '.svg';
   private readonly LETTERS_PATTERN: string = '[a-zA-Zа-яА-Я]+$';
+  private readonly LOCALE_SWITCHER_FONT_SIZE_FACTOR: number = 0.0175;
+  private readonly PIXEL_UNIT: string = 'px';
+  private readonly TRANSLATIONS_SOURCE: string = '/assets/i18n/';
 
-  public loginMode: LoginMode;
-  public formGroup: FormGroup;
-  public featureInfo: InfoItem;
-  public goalInfo: InfoItem;
+  @ViewChild('headerContainer')
+  public headerContainerRef: ElementRef;
+
   public errorTranslationKey: string;
+  public featureInfo: InfoItem;
+  public formGroup: FormGroup;
+  public goalInfo: InfoItem;
+  public localeSwitcherStyle: any = {};
+  public loginMode: LoginMode;
 
   constructor(private cdRef: ChangeDetectorRef,
               private http: HttpClient,
@@ -62,6 +79,12 @@ export class StartPageComponent implements OnInit {
       passwordConfirmation: new FormControl('', [Validators.required, Validators.minLength(6)])
     });
     this.collectFeatureInfoPoints();
+    this.updateLocaleSwitcherSize();
+  }
+
+  @HostListener('window:resize')
+  public onResize() {
+    this.updateLocaleSwitcherSize();
   }
 
   public get headerSrc(): string {
@@ -82,12 +105,29 @@ export class StartPageComponent implements OnInit {
 
   public get canSignUp(): boolean {
     return this.formGroup.get('name').valid && this.formGroup.get('surname').valid
-      && this.formGroup.get('email').valid && this.formGroup.get('username').valid && !this.isPasswordMismatch;
+      && this.formGroup.get('email').valid && this.formGroup.get('username').valid
+      && this.formGroup.get('password').valid && this.formGroup.get('passwordConfirmation').valid && !this.isPasswordMismatch;
   }
 
   public get isPasswordMismatch(): boolean {
     return this.formGroup.get('password').touched && this.formGroup.get('passwordConfirmation').touched
       && this.formGroup.get('password').value !== this.formGroup.get('passwordConfirmation').value;
+  }
+
+  public updateLocaleSwitcherSize(): void {
+    this.localeSwitcherStyle = {
+      [this.FONT_SIZE_STYLE_NAME]: this.headerContainerRef.nativeElement.offsetWidth * this.LOCALE_SWITCHER_FONT_SIZE_FACTOR + this.PIXEL_UNIT
+    };
+  }
+
+  public setLocale(): void {
+    const allLocales: string[] = environment.locales;
+    const currentLocale: string = this.translateService.currentLang;
+    const nextLocaleIndex: number = (allLocales.indexOf(currentLocale) + 1) % allLocales.length;
+    const nextLocale: string = allLocales[nextLocaleIndex];
+    this.translateService.use(nextLocale).subscribe(() => {
+      this.collectFeatureInfoPoints();
+    });
   }
 
   public isAllPointsFocused(points: InfoItem[]): boolean {

@@ -4,8 +4,23 @@
   height: 100vh;
 }
 
+.header-container {
+  position: relative;
+  display: inline-block;
+}
+
 .header {
   height: auto;
+}
+
+.locale-switcher {
+  position: absolute;
+  top: 77%;
+  left: 82.2%;
+
+  span {
+    color: white;
+  }
 }
 
 .page-content {
