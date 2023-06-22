@@ -178,15 +178,7 @@ export class StartPageComponent implements OnInit {
 
   public signUp(): void {
     if (this.isSignUpMode) {
-      const registrationInfo: RegistrationInfoVO = new RegistrationInfoVO();
-      registrationInfo.name = this.formGroup.get('name').value;
-      registrationInfo.surname = this.formGroup.get('surname').value;
-      registrationInfo.email = this.formGroup.get('email').value;
-      registrationInfo.username = this.formGroup.get('username').value;
-      registrationInfo.password = this.formGroup.get('password').value;
-      registrationInfo.passwordConfirmation = this.formGroup.get('passwordConfirmation').value;
-      const signUpObservable: Observable<number> = this.loginService.signUp(registrationInfo)
-      this.processUserAuth(signUpObservable);
+      this.handleSignUp();
     } else {
       this.loginMode = LoginMode.signUp;
       this.errorTranslationKey = null;
@@ -195,15 +187,40 @@ export class StartPageComponent implements OnInit {
 
   public signIn(): void {
     if (this.isSignInMode) {
-      const authorizationInfo: AuthorizationInfoVO = new AuthorizationInfoVO();
-      authorizationInfo.usernameOrEmail = this.formGroup.get('usernameOrEmail').value;
-      authorizationInfo.password = this.formGroup.get('password').value;
-      const signInObservable: Observable<number> = this.loginService.signIn(authorizationInfo)
-      this.processUserAuth(signInObservable);
+      this.handleSignIn();
     } else {
       this.loginMode = LoginMode.signIn;
       this.errorTranslationKey = null;
     }
+  }
+
+  public onEnterKey(): void {
+    if (this.isSignUpMode && this.canSignUp) {
+      this.handleSignUp();
+    }
+    if (this.isSignInMode && this.canSignIn) {
+      this.handleSignIn();
+    }
+  }
+
+  private handleSignUp(): void {
+    const registrationInfo: RegistrationInfoVO = new RegistrationInfoVO();
+    registrationInfo.name = this.formGroup.get('name').value;
+    registrationInfo.surname = this.formGroup.get('surname').value;
+    registrationInfo.email = this.formGroup.get('email').value;
+    registrationInfo.username = this.formGroup.get('username').value;
+    registrationInfo.password = this.formGroup.get('password').value;
+    registrationInfo.passwordConfirmation = this.formGroup.get('passwordConfirmation').value;
+    const signUpObservable: Observable<number> = this.loginService.signUp(registrationInfo)
+    this.processUserAuth(signUpObservable);
+  }
+
+  private handleSignIn(): void {
+    const authorizationInfo: AuthorizationInfoVO = new AuthorizationInfoVO();
+    authorizationInfo.usernameOrEmail = this.formGroup.get('usernameOrEmail').value;
+    authorizationInfo.password = this.formGroup.get('password').value;
+    const signInObservable: Observable<number> = this.loginService.signIn(authorizationInfo)
+    this.processUserAuth(signInObservable);
   }
 
   private processUserAuth(userAuthObservable: Observable<number>): void {

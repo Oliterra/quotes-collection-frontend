@@ -1,4 +1,4 @@
-<div class="d-flex flex-column start-page">
+<div class="d-flex flex-column">
   <div class="header-container" #headerContainer>
     <img class="w-100" [src]="headerSrc" (load)="updateLocaleSwitcherSize()">
     <button class="btn btn-transparent locale-switcher" (click)="setLocale()">
@@ -24,42 +24,49 @@
           <div *ngIf="isSignUpMode">
             <label>{{ 'start.authorization.name' | translate }}</label>
             <input class="form-control"
+                   formControlName="name"
                    [class.invalid]="formGroup.get('name').touched && formGroup.get('name').invalid"
-                   formControlName="name">
+                   (keyup.enter)="onEnterKey()">
           </div>
           <div *ngIf="isSignUpMode">
             <label>{{ 'start.authorization.surname' | translate }}</label>
             <input class="form-control"
+                   formControlName="surname"
                    [class.invalid]="formGroup.get('surname').touched && formGroup.get('surname').invalid"
-                   formControlName="surname">
+                   (keyup.enter)="onEnterKey()">
           </div>
           <div *ngIf="isSignInMode">
             <label>{{ 'start.authorization.usernameOrEmail' | translate }}</label>
             <input class="form-control"
-                   formControlName="usernameOrEmail">
+                   formControlName="usernameOrEmail"
+                   (keyup.enter)="onEnterKey()">
           </div>
           <div *ngIf="isSignUpMode">
             <label>{{ 'start.authorization.email' | translate }}</label>
             <input class="form-control"
+                   formControlName="email"
                    [class.invalid]="formGroup.get('email').touched && formGroup.get('email').invalid"
-                   formControlName="email">
+                   (keyup.enter)="onEnterKey()">
           </div>
           <div *ngIf="isSignUpMode">
             <label>{{ 'start.authorization.username' | translate }}</label>
             <input class="form-control"
-                   formControlName="username">
+                   formControlName="username"
+                   (keyup.enter)="onEnterKey()">
           </div>
           <div>
             <label>{{ 'start.authorization.password' | translate }}</label>
             <input class="form-control"
                    type="password"
-                   formControlName="password">
+                   formControlName="password"
+                   (keyup.enter)="onEnterKey()">
           </div>
           <div *ngIf="isSignUpMode">
             <label>{{ 'start.authorization.passwordConfirmation' | translate }}</label>
             <input class="form-control"
                    type="password"
-                   formControlName="passwordConfirmation">
+                   formControlName="passwordConfirmation"
+                   (keyup.enter)="onEnterKey()">
           </div>
           <div *ngIf="isSignUpMode && isPasswordMismatch"
                class="d-flex error">
