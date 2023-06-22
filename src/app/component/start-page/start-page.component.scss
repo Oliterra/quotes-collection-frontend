@@ -1,16 +1,8 @@
 @import "colors";
 
-.start-page {
-  height: 100vh;
-}
-
 .header-container {
   position: relative;
   display: inline-block;
-}
-
-.header {
-  height: auto;
 }
 
 .locale-switcher {
@@ -30,6 +22,7 @@
 
 .about-app-info {
   width: 65%;
+  row-gap: 5vh;
 }
 
 .block-header {
@@ -37,8 +30,9 @@
 }
 
 .authorization-form {
-  height: auto;
   width: 35%;
+  margin-top: auto;
+  margin-bottom: auto;
   padding: 20px;
   border: 1px solid $colorPrimary;
   border-radius: 16px;

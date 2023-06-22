@@ -16,8 +16,7 @@ import {ErrorTranslatorService} from "../../model/error-translator.service";
 import {UserService} from "../../service/user.service";
 import {Router} from "@angular/router";
 import {RouteNavigationService} from "../../routing/route-navigation.service";
-import {catchError, Observable, ObservableInput, of, tap} from "rxjs";
-import {AppConstants} from "../../model/app-constants";
+import {catchError, Observable, of, tap} from "rxjs";
 import {environment} from "../../../environments/environment";
 
 enum LoginMode {
@@ -115,9 +114,11 @@ export class StartPageComponent implements OnInit {
   }
 
   public updateLocaleSwitcherSize(): void {
-    this.localeSwitcherStyle = {
-      [this.FONT_SIZE_STYLE_NAME]: this.headerContainerRef.nativeElement.offsetWidth * this.LOCALE_SWITCHER_FONT_SIZE_FACTOR + this.PIXEL_UNIT
-    };
+    if (this.headerContainerRef) {
+      this.localeSwitcherStyle = {
+        [this.FONT_SIZE_STYLE_NAME]: this.headerContainerRef.nativeElement.offsetWidth * this.LOCALE_SWITCHER_FONT_SIZE_FACTOR + this.PIXEL_UNIT
+      };
+    }
   }
 
   public setLocale(): void {
@@ -176,7 +177,7 @@ export class StartPageComponent implements OnInit {
   }
 
   public signUp(): void {
-    if (this.loginMode === LoginMode.signUp) {
+    if (this.isSignUpMode) {
       const registrationInfo: RegistrationInfoVO = new RegistrationInfoVO();
       registrationInfo.name = this.formGroup.get('name').value;
       registrationInfo.surname = this.formGroup.get('surname').value;
@@ -188,11 +189,12 @@ export class StartPageComponent implements OnInit {
       this.processUserAuth(signUpObservable);
     } else {
       this.loginMode = LoginMode.signUp;
+      this.errorTranslationKey = null;
     }
   }
 
   public signIn(): void {
-    if (this.loginMode === LoginMode.signIn) {
+    if (this.isSignInMode) {
       const authorizationInfo: AuthorizationInfoVO = new AuthorizationInfoVO();
       authorizationInfo.usernameOrEmail = this.formGroup.get('usernameOrEmail').value;
       authorizationInfo.password = this.formGroup.get('password').value;
@@ -200,6 +202,7 @@ export class StartPageComponent implements OnInit {
       this.processUserAuth(signInObservable);
     } else {
       this.loginMode = LoginMode.signIn;
+      this.errorTranslationKey = null;
     }
   }
 

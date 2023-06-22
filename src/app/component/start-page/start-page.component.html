@@ -1,12 +1,12 @@
 <div class="d-flex flex-column start-page">
   <div class="header-container" #headerContainer>
-    <img class="header w-100" [src]="headerSrc" (load)="updateLocaleSwitcherSize()">
+    <img class="w-100" [src]="headerSrc" (load)="updateLocaleSwitcherSize()">
     <button class="btn btn-transparent locale-switcher" (click)="setLocale()">
       <span class="material-symbols-outlined" [ngStyle]="localeSwitcherStyle">translate</span>
     </button>
   </div>
-  <div class="d-flex align-items-center h-100 page-content">
-    <div class="about-app-info d-flex flex-column justify-content-between h-100">
+  <div class="d-flex align-items-start page-content">
+    <div class="d-flex flex-column about-app-info">
       <div *ngIf="goalInfo">
         <ng-container *ngTemplateOutlet="infoItem; context: { item: goalInfo, isHeader: true }"></ng-container>
       </div>
@@ -15,7 +15,7 @@
           *ngTemplateOutlet="infoItem; context: { item: featureInfo, isHeader: true }"></ng-container>
       </div>
     </div>
-    <div class="authorization-form pull-right" [formGroup]="formGroup">
+    <div class="authorization-form" [formGroup]="formGroup">
       <div class="modal-header block-header">
         {{ 'start.authorization.title' | translate }}
       </div>
