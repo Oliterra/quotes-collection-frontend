@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, OnInit, Output} from '@angular/core';
+import {Component, Input, OnChanges, OnDestroy, OnInit, Output} from '@angular/core';
 import {Subject} from "rxjs";
 import {AbstractControl, FormControl} from "@angular/forms";
 
@@ -35,6 +35,8 @@ export class InputDropdownComponent implements OnInit, OnChanges {
   @Input()
   public clean: Subject<any>[] = [];
   @Input()
+  public close: Subject<void>;
+  @Input()
   public showAddButton: boolean = false;
 
   @Output()
@@ -49,6 +51,9 @@ export class InputDropdownComponent implements OnInit, OnChanges {
   public selectedItemsToShowSeparately: ItemInfo[] = [];
 
   public ngOnInit(): void {
+    this.close.subscribe(() => {
+      this.closeFilteredItemsDropdown();
+    });
     this.clean.forEach((subject: Subject<any>) => {
       subject.subscribe(() => {
         this.selectedItemsToShowSeparately = [];
@@ -143,11 +148,9 @@ export class InputDropdownComponent implements OnInit, OnChanges {
       this.selectedItemsToShowSeparately.push(itemInfo);
       this.formControl.reset();
     } else {
-      let selectedItemNames: string = this.formControl.value;
-      if (this.formControl.value?.length) {
-        selectedItemNames = selectedItemNames + this.MULTISELECT_DELIMITER;
-      }
-      selectedItemNames = selectedItemNames + this.getItemName(itemInfo);
+      let selectedItemNames: string = this.formControl.value || '';
+      selectedItemNames += selectedItemNames ? this.MULTISELECT_DELIMITER : '';
+      selectedItemNames += this.getItemName(itemInfo);
       this.formControl.setValue(selectedItemNames);
     }
   }

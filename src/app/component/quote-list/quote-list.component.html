@@ -42,12 +42,12 @@
             </div>
           </div>
         </ng-container>
-        <div *ngIf="!pageQuotes" class="d-flex flex-column justify-content-center align-items-center">
+        <ng-container *ngIf="pageQuotes?.length" [ngTemplateOutlet]="quotesPaginator"></ng-container>
+        <div *ngIf="!pageQuotes?.length" class="d-flex flex-column justify-content-center align-items-center">
           <p class="primary">{{'global.label.noContent' | translate }}</p>
           <img width="450" height="450" src="/assets/images/no_filtered_quotes.svg">
           <p class="primary">{{'quote.hint.addQuotes' | translate }}</p>
         </div>
-        <ng-container *ngIf="pageQuotes" [ngTemplateOutlet]="quotesPaginator"></ng-container>
       </div>
     </perfect-scrollbar>
   </div>

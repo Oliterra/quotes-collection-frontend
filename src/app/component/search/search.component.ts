@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, Output} from '@angular/core';
+import {ChangeDetectorRef, Component, Input, OnInit, Output} from '@angular/core';
 import {FormControl, FormGroup} from "@angular/forms";
 import {forkJoin, of, Subject, tap} from "rxjs";
 import {QuoteFilterVO} from "../../model/vo/supplementary.vo";
@@ -42,10 +42,11 @@ export class SearchComponent implements OnInit {
   public categoryIds: number[] = [];
   public text: string;
   public tagIds: number[] = [];
+
   public searchFormGroup: FormGroup;
+
   public canReset: boolean = false;
   public showOnlyAddedByUser: boolean = false;
-
   public isLoading: boolean = false;
   private isDataLoaded: boolean = false;
   private isExternalFiltered: boolean = false;
@@ -53,6 +54,7 @@ export class SearchComponent implements OnInit {
   constructor(private authorService: AuthorService,
               private bookService: BookService,
               private categoryService: CategoryService,
+              private cdRef: ChangeDetectorRef,
               private tagService: TagService,
               private userService: UserService,
               private quoteService: QuoteService) {
@@ -70,9 +72,17 @@ export class SearchComponent implements OnInit {
     });
   }
 
+  public get isQuoteSearchMode(): boolean {
+    return this.mode === SearchMode.quoteMode;
+  }
+
+  public get isBookSearchMode(): boolean {
+    return this.mode === SearchMode.bookMode;
+  }
+
   private loadData(): void {
     forkJoin([this.authorService.getAllAuthors(), this.bookService.getAllBooks(),
-      this.categoryService.getAllCategories(), this.mode === SearchMode.quoteMode ? this.tagService.getAllTags() : of([])
+      this.categoryService.getAllCategories(), this.isQuoteSearchMode ? this.tagService.getAllTags() : of([])
     ]).pipe(tap(() => this.isLoading = false))
       .subscribe(([authors, books, categories, tags]) => {
         this.authors = authors;
@@ -88,7 +98,7 @@ export class SearchComponent implements OnInit {
 
   public get canBeFiltered(): boolean {
     const mainFieldsFilled: boolean = Boolean(this.authorId) || Boolean(this.bookId) || Boolean(this.categoryIds.length);
-    return this.mode === SearchMode.bookMode
+    return this.isBookSearchMode
       ? mainFieldsFilled
       : mainFieldsFilled || Boolean(this.searchFormGroup.get('text').value) || Boolean(this.tagIds.length);
   }
@@ -115,7 +125,7 @@ export class SearchComponent implements OnInit {
   }
 
   public find(): void {
-    if (this.mode === SearchMode.quoteMode) {
+    if (this.isQuoteSearchMode) {
       this.quoteService.quoteFilter = {
         authorId: this.authorId,
         bookId: this.bookId,
@@ -125,7 +135,7 @@ export class SearchComponent implements OnInit {
         isSearch: true
       };
     }
-    if (this.mode === SearchMode.bookMode) {
+    if (this.isBookSearchMode) {
       this.bookService.bookFilter = {
         authorId: this.authorId,
         bookId: this.bookId,
@@ -138,7 +148,7 @@ export class SearchComponent implements OnInit {
   }
 
   public onExternalFilter(): void {
-    if (this.mode === SearchMode.quoteMode) {
+    if (this.isQuoteSearchMode) {
       if (this.isDataLoaded) {
         this.searchFormGroup.reset();
         const externalQuoteFilter: QuoteFilterVO = this.quoteService.quoteFilter;
@@ -162,10 +172,11 @@ export class SearchComponent implements OnInit {
   }
 
   public reset(): void {
-    if (this.mode === SearchMode.quoteMode) {
+    this.resetLocalData();
+    if (this.isQuoteSearchMode) {
       this.quoteService.resetQuoteFilter();
     }
-    if (this.mode === SearchMode.bookMode) {
+    if (this.isBookSearchMode) {
       if (this.showOnlyAddedByUser) {
         this.bookService.bookFilter.authorId = null;
         this.bookService.bookFilter.bookId = null;
@@ -177,5 +188,13 @@ export class SearchComponent implements OnInit {
     this.onFilterReset.next();
     this.searchFormGroup.reset();
     this.canReset = false;
+  }
+
+  private resetLocalData(): void {
+    this.bookId = null;
+    this.authorId = null;
+    this.categoryIds = [];
+    this.text = null;
+    this.tagIds = [];
   }
 }

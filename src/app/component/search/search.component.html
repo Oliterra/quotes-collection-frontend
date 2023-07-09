@@ -5,7 +5,8 @@
         <label>{{ 'quote.search.label.author' | translate }}</label>
         <app-input-dropdown [control]="this.searchFormGroup.get('author')"
                             [items]="authors"
-                            [clean]="[onFilter, onFilterReset]"
+                            [clean]="[onFilterReset]"
+                            [close]="onFilter"
                             (onItemSelection)="this.authorId = $event.id"
                             (onItemUnselection)="this.authorId = null">
         </app-input-dropdown>
@@ -14,7 +15,8 @@
         <label>{{ 'quote.search.label.book' | translate }}</label>
         <app-input-dropdown [control]="this.searchFormGroup.get('book')"
                             [items]="books"
-                            [clean]="[onFilter, onFilterReset]"
+                            [clean]="[onFilterReset]"
+                            [close]="onFilter"
                             (onItemSelection)="this.bookId = $event.id"
                             (onItemUnselection)="this.bookId = null">
         </app-input-dropdown>
@@ -25,7 +27,8 @@
                             [items]="categories"
                             [isMultiselect]="true"
                             [isReadonly]="true"
-                            [clean]="[onFilter, onFilterReset]"
+                            [clean]="[onFilterReset]"
+                            [close]="onFilter"
                             (onItemSelection)="onCategorySelection($event)"
                             (onItemUnselection)="onCategoryUnselection($event)">
         </app-input-dropdown>
@@ -44,7 +47,8 @@
                             [isMultiselect]="true"
                             [showSelectedItemsSeparately]="true"
                             [isFirstCharacterSpecial]="true"
-                            [clean]="[onFilter, onFilterReset]"
+                            [clean]="[onFilterReset]"
+                            [close]="onFilter"
                             (onItemSelection)="onTagSelection($event)"
                             (onItemUnselection)="onTagUnselection($event)">
         </app-input-dropdown>
