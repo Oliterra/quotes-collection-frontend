@@ -30,7 +30,7 @@ export class WindowService {
     return closeEmitter;
   }
 
-  public openAddBookDialog(book: BookVO = null): Subject<BookVO> {
+  public openAddBookDialog(book: BookVO = null, bookName: string = null): Subject<BookVO> {
     const closeEmitter: Subject<BookVO> = new Subject<BookVO>();
     this.bsModalService.show(BookInfoComponent, {
       class: 'modal-lg modal-width-lg',
@@ -38,6 +38,7 @@ export class WindowService {
       ignoreBackdropClick: this.ignoreBackdropClick,
       initialState: {
         book,
+        bookName,
         closeEmitter
       }
     });

@@ -6,29 +6,17 @@
     <perfect-scrollbar>
       <!--book-->
       <label>{{ 'dialog.addQuote.label.sourceBook' | translate }}</label>
-      <input class="form-control"
-             [formControl]="bookFormControl"
-             (input)="onBookInputChange($event)">
-      <!--TODO: use names-dropdown instead-->
-      <div *ngIf="isBookDropdownOpen" class="filtered-books-container d-flex"
-           [style.height]="getBooksHintHeight(false)">
-        <perfect-scrollbar>
-          <ul class="filtered-books p-0">
-            <li class="add-book p-0" [style.height]="getBooksHintHeight(true)">
-              <span class="material-symbols-outlined mr-1">add_circle</span>
-              {{'dialog.addQuote.label.addBook' | translate}}
-            </li>
-            <li *ngFor="let book of filteredBooks" [style.height]="getBooksHintHeight(true)"
-                (click)="selectBook(book)">
-              {{book.name + ' - ' + book.author.name}}
-            </li>
-          </ul>
-        </perfect-scrollbar>
-      </div>
+      <app-input-dropdown [control]="bookFormControl"
+                          [items]="books"
+                          [showAddButton]="true"
+                          (onItemSelection)="selectedBook = $event"
+                          (onItemUnselection)="selectedBook = null"
+                          (onItemAdding)="onBookAdding()">
+      </app-input-dropdown>
 
       <!--text-->
       <label class="mt-3">{{ 'dialog.addQuote.label.text' | translate }}</label>
-      <textarea #quoteTextarea class="form-control" rows="7" autosize
+      <textarea class="form-control" rows="7" autosize
                 [formControl]="textFormControl"></textarea>
 
       <!--access level-->
@@ -51,12 +39,14 @@
       </div>
 
       <!--groups-->
-      <label class="mt-3">{{ 'dialog.addQuote.label.addToGroup' | translate }}</label>
-      <button *ngFor="let groupInfo of groups" class="btn btn-group mb-1"
-              [class.selected]="groupInfo.isSelected"
-              (click)="toggleGroupSelection(groupInfo)">
-        {{groupInfo.group.name}}
-      </button>
+      <ng-container *ngIf="groups.length">
+        <label class="mt-3">{{ 'dialog.addQuote.label.addToGroup' | translate }}</label>
+        <button *ngFor="let groupInfo of groups" class="btn btn-group mb-1"
+                [class.selected]="groupInfo.isSelected"
+                (click)="toggleGroupSelection(groupInfo)">
+          {{groupInfo.group.name}}
+        </button>
+      </ng-container>
 
       <!--tags-->
       <label class="mt-2">{{ 'dialog.addQuote.label.addTags' | translate }}</label>

@@ -18,6 +18,8 @@ export class BookInfoComponent implements OnInit {
   @Input()
   public book: BookVO;
   @Input()
+  public bookName: string;
+  @Input()
   public closeEmitter: Subject<BookVO>;
 
   public authors: AuthorVO[];
@@ -44,7 +46,7 @@ export class BookInfoComponent implements OnInit {
       this.authors = authors;
       this.categories = categories;
     });
-    this.bookInfoFormControl = new FormControl<any>(this.book?.name || '');
+    this.bookInfoFormControl = new FormControl<any>(this.book?.name ?? this.bookName ?? '');
     this.authorInfoFormControl = new FormControl<any>(this.book?.author?.name || '');
     this.authorId = this.book ? this.book.author.id : null;
     this.categoriesInfoFormControl = new FormControl<any>(this.book ? this.bookService.getBookCategories(this.book) : '');
@@ -58,7 +60,7 @@ export class BookInfoComponent implements OnInit {
     this.authorId = selectedAuthor.id
   }
 
-  public onAuthorUnselection(unselectedAuthor: AuthorVO): void {
+  public onAuthorUnselection(): void {
     this.isBookChanged = true;
     this.authorId = null;
   }
@@ -83,7 +85,7 @@ export class BookInfoComponent implements OnInit {
     });
   }
 
-  public canBeConfirmed() {
+  public canBeConfirmed(): boolean {
     const isMainInfo: boolean = this.bookInfoFormControl.value && Boolean(this.authorId);
     if (this.book) {
       return isMainInfo && this.isBookChanged;

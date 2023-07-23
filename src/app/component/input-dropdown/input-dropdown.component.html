@@ -14,7 +14,7 @@
               [readonly]="isReadonly"
               [formControl]="formControl"
               (click)="openFilteredItemsDropdown()"></textarea>
-    <div *ngIf="isOpen" class="item-dropdown"
+    <div *ngIf="isOpen && !isItemSelected" class="item-dropdown"
          [style.height]="getDropdownHeight()"
          (mouseleave)="closeFilteredItemsDropdown()">
       <perfect-scrollbar>

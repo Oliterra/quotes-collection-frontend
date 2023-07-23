@@ -1,13 +1,14 @@
 import {ChangeDetectorRef, Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {BsModalService} from "ngx-bootstrap/modal";
 import {forkJoin, Subject, tap} from "rxjs";
-import {BookVO, GroupVO, QuoteMainInfoVO, TagVO} from "../../../model/vo/project.vo";
+import {AuthorVO, BookVO, GroupVO, QuoteMainInfoVO, TagVO} from "../../../model/vo/project.vo";
 import {GroupService} from "../../../service/group.service";
 import {BookService} from "../../../service/book.service";
 import {TagService} from "../../../service/tag.service";
 import {FormControl} from "@angular/forms";
 import {UserService} from "../../../service/user.service";
 import {QuoteService} from "../../../service/quote.service";
+import {WindowService} from "../../../service/window.service";
 
 export interface GroupInfo {
   group: GroupVO,
@@ -26,7 +27,6 @@ export interface TagInfo {
 })
 export class AddQuoteComponent implements OnInit {
 
-  public readonly LI_HEIGHT: number = 25;
   public readonly HASH_SYMBOL: string = '#';
 
   @Input()
@@ -38,7 +38,6 @@ export class AddQuoteComponent implements OnInit {
   public selectedBook: BookVO;
   public filteredBooks: BookVO[] = [];
   public filteredTags: TagInfo[] = [];
-  public isBookDropdownOpen: boolean = false;
   public isPublic: boolean = false;
   public isLoading: boolean = false;
   public bookFormControl: FormControl = new FormControl<string>('');
@@ -51,7 +50,8 @@ export class AddQuoteComponent implements OnInit {
               private groupService: GroupService,
               private quoteService: QuoteService,
               private tagService: TagService,
-              private userService: UserService) {
+              private userService: UserService,
+              private windowService: WindowService) {
   }
 
   public ngOnInit(): void {
@@ -80,32 +80,14 @@ export class AddQuoteComponent implements OnInit {
       });
   }
 
-  public onBookInputChange(event) {
-    const typedString: string = event.target.value.toLowerCase();
-    this.isBookDropdownOpen = true;
-    if (typedString.length) {
-      this.filteredBooks = this.books.filter((book: BookVO) => book.name.startsWith(typedString) || book.name.toLowerCase().startsWith(typedString));
-    } else {
-      this.filteredBooks = [];
-    }
-  }
-
-  public getBooksHintHeight(isSingleElement: boolean): string {
-    if (isSingleElement || !this.filteredBooks.length) {
-      return this.LI_HEIGHT + 'px';
-    } else {
-      let count: number = 4;
-      if (this.filteredBooks.length < 3) {
-        count = this.filteredBooks.length + 1;
+  public onBookAdding(): void {
+    this.windowService.openAddBookDialog(null, this.bookFormControl.value).subscribe((book: BookVO) => {
+      if (book) {
+        this.books.push(book);
+        this.selectedBook = book;
+        this.bookFormControl.setValue(book.name);
       }
-      return this.LI_HEIGHT * count + 'px';
-    }
-  }
-
-  public selectBook(book: BookVO): void {
-    this.selectedBook = book;
-    this.bookFormControl.setValue(this.selectedBook.name);
-    this.isBookDropdownOpen = false;
+    });
   }
 
   public toggleVisibility(isPublic: boolean): void {

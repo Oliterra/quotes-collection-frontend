@@ -49,11 +49,14 @@ export class InputDropdownComponent implements OnInit, OnChanges {
   public itemInfos: ItemInfo[];
   public isOpen: boolean = false;
   public selectedItemsToShowSeparately: ItemInfo[] = [];
+  public isItemSelected: boolean = false;
 
   public ngOnInit(): void {
-    this.close.subscribe(() => {
-      this.closeFilteredItemsDropdown();
-    });
+    if (this.close) {
+      this.close.subscribe(() => {
+        this.closeFilteredItemsDropdown();
+      });
+    }
     this.clean.forEach((subject: Subject<any>) => {
       subject.subscribe(() => {
         this.selectedItemsToShowSeparately = [];
@@ -72,6 +75,7 @@ export class InputDropdownComponent implements OnInit, OnChanges {
 
   public onInput(): void {
     const selectedItem: any = this.items.find((item: any) => item[this.NAME_FIELD] === this.formControl.value);
+    this.isItemSelected = Boolean(selectedItem);
     if (selectedItem) {
       this.onItemSelection.next(this.items.find((item: any) => item[this.NAME_FIELD] === this.formControl.value));
     } else {
